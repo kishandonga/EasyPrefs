@@ -12,7 +12,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 context.packageName,
                 Context.MODE_PRIVATE
-            )
+            ).edit()
         )
     }
 
@@ -21,7 +21,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 fileName,
                 Context.MODE_PRIVATE
-            )
+            ).edit()
         )
     }
 
@@ -30,7 +30,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 fileName,
                 mode
-            )
+            ).edit()
         )
     }
 
