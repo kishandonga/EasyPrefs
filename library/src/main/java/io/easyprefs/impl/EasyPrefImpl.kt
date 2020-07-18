@@ -2,6 +2,7 @@ package io.easyprefs.impl
 
 import android.content.Context
 import io.easyprefs.contract.EasyPref
+import io.easyprefs.contract.Edit
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Write
 
@@ -58,6 +59,33 @@ object EasyPrefImpl : EasyPref {
                 fileName,
                 mode
             )
+        )
+    }
+
+    override fun edit(context: Context): Edit {
+        return EditImpl(
+            context.getSharedPreferences(
+                context.packageName,
+                Context.MODE_PRIVATE
+            ).edit()
+        )
+    }
+
+    override fun editOn(context: Context, fileName: String): Edit {
+        return EditImpl(
+            context.getSharedPreferences(
+                fileName,
+                Context.MODE_PRIVATE
+            ).edit()
+        )
+    }
+
+    override fun editOn(context: Context, fileName: String, mode: Int): Edit {
+        return EditImpl(
+            context.getSharedPreferences(
+                fileName,
+                mode
+            ).edit()
         )
     }
 }

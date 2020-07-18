@@ -19,4 +19,12 @@ interface EasyPref {
         @NonNull fileName: String,
         mode: Int
     ): Read
+
+    fun edit(@NonNull context: Context): Edit
+    fun editOn(@NonNull context: Context, @NonNull fileName: String): Edit
+    fun editOn(
+        @NonNull context: Context,
+        @NonNull fileName: String,
+        mode: Int
+    ): Edit
 }

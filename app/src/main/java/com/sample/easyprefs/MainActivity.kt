@@ -9,6 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Prefs.writable().writeStringSetAsync("", HashSet())
+        Prefs.write().stringSetAsync("", HashSet())
     }
 }
