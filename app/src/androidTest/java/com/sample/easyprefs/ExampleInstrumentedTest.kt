@@ -77,4 +77,80 @@ class ExampleInstrumentedTest {
         val data = Prefs.read().float(Const.SAMPLE_FLOAT_KEY_ASYNC, Float.MIN_VALUE)
         assertEquals(value, data)
     }
+
+    @Test
+    fun testLong() {
+        val value = Long.MAX_VALUE
+        val out = Prefs.write().long(Const.SAMPLE_LONG_KEY, value)
+        assertEquals(true, out)
+
+        val data = Prefs.read().long(Const.SAMPLE_LONG_KEY, Long.MIN_VALUE)
+        assertEquals(value, data)
+    }
+
+    @Test
+    fun testLongAsync() {
+        val value = Long.MAX_VALUE
+        Prefs.write().longAsync(Const.SAMPLE_LONG_KEY_ASYNC, value)
+
+        val data = Prefs.read().long(Const.SAMPLE_LONG_KEY_ASYNC, Long.MIN_VALUE)
+        assertEquals(value, data)
+    }
+
+    @Test
+    fun testDouble() {
+        val value = Double.MAX_VALUE
+        val out = Prefs.write().double(Const.SAMPLE_DOUBLE_KEY, value)
+        assertEquals(true, out)
+
+        val data = Prefs.read().double(Const.SAMPLE_DOUBLE_KEY, Double.MIN_VALUE)
+        assertEquals(value.toString(), data.toString())
+    }
+
+    @Test
+    fun testDoubleAsync() {
+        val value = Double.MAX_VALUE
+        Prefs.write().doubleAsync(Const.SAMPLE_DOUBLE_KEY_ASYNC, value)
+
+        val data = Prefs.read().double(Const.SAMPLE_DOUBLE_KEY_ASYNC, Double.MIN_VALUE)
+        assertEquals(value.toString(), data.toString())
+    }
+
+    @Test
+    fun testBoolean() {
+        val value = false
+        val out = Prefs.write().boolean(Const.SAMPLE_BOOLEAN_KEY, value)
+        assertEquals(true, out)
+
+        val data = Prefs.read().boolean(Const.SAMPLE_BOOLEAN_KEY, true)
+        assertEquals(value, data)
+    }
+
+    @Test
+    fun testBooleanAsync() {
+        val value = false
+        Prefs.write().booleanAsync(Const.SAMPLE_BOOLEAN_KEY_ASYNC, value)
+
+        val data = Prefs.read().boolean(Const.SAMPLE_BOOLEAN_KEY_ASYNC, true)
+        assertEquals(value, data)
+    }
+
+    @Test
+    fun testStringSet() {
+        val value = setOf("A", "B", "C", "D")
+        val out = Prefs.write().stringSet(Const.SAMPLE_BOOLEAN_KEY, value)
+        assertEquals(true, out)
+
+        val data = Prefs.read().stringSet(Const.SAMPLE_BOOLEAN_KEY, setOf())
+        assertEquals(value, data)
+    }
+
+    @Test
+    fun testStringSetAsync() {
+        val value = setOf("A", "B", "C", "D")
+        Prefs.write().stringSetAsync(Const.SAMPLE_STRING_SET_KEY, value)
+
+        val data = Prefs.read().stringSet(Const.SAMPLE_STRING_SET_KEY_ASYNC, setOf())
+        assertEquals(value, data)
+    }
 }
