@@ -5,6 +5,9 @@ import io.easyprefs.contract.Edit
 import io.easyprefs.contract.PrefProvider
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Write
+import io.easyprefs.error.PrefsEditContextException
+import io.easyprefs.error.PrefsReadContextException
+import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.impl.EasyPrefImpl
 
 object Prefs : PrefProvider {
@@ -16,15 +19,24 @@ object Prefs : PrefProvider {
     }
 
     override fun write(): Write {
-        return write(context)
+        if (this::context.isInitialized) {
+            return write(context)
+        }
+        throw PrefsWriteContextException()
     }
 
     override fun write(fileName: String): Write {
-        return write(context, fileName)
+        if (this::context.isInitialized) {
+            return write(context, fileName)
+        }
+        throw PrefsWriteContextException()
     }
 
     override fun write(fileName: String, mode: Int): Write {
-        return write(context, fileName, mode)
+        if (this::context.isInitialized) {
+            return write(context, fileName, mode)
+        }
+        throw PrefsWriteContextException()
     }
 
     override fun write(context: Context): Write {
@@ -40,15 +52,24 @@ object Prefs : PrefProvider {
     }
 
     override fun read(): Read {
-        return read(context)
+        if (this::context.isInitialized) {
+            return read(context)
+        }
+        throw PrefsReadContextException()
     }
 
     override fun read(fileName: String): Read {
-        return read(context, fileName)
+        if (this::context.isInitialized) {
+            return read(context, fileName)
+        }
+        throw PrefsReadContextException()
     }
 
     override fun read(fileName: String, mode: Int): Read {
-        return read(context, fileName, mode)
+        if (this::context.isInitialized) {
+            return read(context, fileName, mode)
+        }
+        throw PrefsReadContextException()
     }
 
     override fun read(context: Context): Read {
@@ -64,15 +85,24 @@ object Prefs : PrefProvider {
     }
 
     override fun edit(): Edit {
-        return edit(context)
+        if (this::context.isInitialized) {
+            return edit(context)
+        }
+        throw PrefsEditContextException()
     }
 
     override fun edit(fileName: String): Edit {
-        return edit(context, fileName)
+        if (this::context.isInitialized) {
+            return edit(context, fileName)
+        }
+        throw PrefsEditContextException()
     }
 
     override fun edit(fileName: String, mode: Int): Edit {
-        return edit(context, fileName, mode)
+        if (this::context.isInitialized) {
+            return edit(context, fileName, mode)
+        }
+        throw PrefsEditContextException()
     }
 
     override fun edit(context: Context): Edit {

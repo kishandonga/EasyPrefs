@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,7 +15,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class PrefsTest {
 
     @Before
     fun initApp() {
@@ -24,8 +25,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testString() {
         val value = "Hello..."
-        val out = Prefs.write().string(Const.SAMPLE_STRING_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().string(Const.SAMPLE_STRING_KEY, value))
 
         val data = Prefs.read().string(Const.SAMPLE_STRING_KEY, "")
         assertEquals(value, data)
@@ -43,8 +43,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testInt() {
         val value = Int.MAX_VALUE
-        val out = Prefs.write().int(Const.SAMPLE_INT_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().int(Const.SAMPLE_INT_KEY, value))
 
         val data = Prefs.read().int(Const.SAMPLE_INT_KEY, Int.MIN_VALUE)
         assertEquals(value, data)
@@ -62,8 +61,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testFloat() {
         val value = Float.MAX_VALUE
-        val out = Prefs.write().float(Const.SAMPLE_FLOAT_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().float(Const.SAMPLE_FLOAT_KEY, value))
 
         val data = Prefs.read().float(Const.SAMPLE_FLOAT_KEY, Float.MIN_VALUE)
         assertEquals(value, data)
@@ -81,8 +79,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testLong() {
         val value = Long.MAX_VALUE
-        val out = Prefs.write().long(Const.SAMPLE_LONG_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().long(Const.SAMPLE_LONG_KEY, value))
 
         val data = Prefs.read().long(Const.SAMPLE_LONG_KEY, Long.MIN_VALUE)
         assertEquals(value, data)
@@ -100,8 +97,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testDouble() {
         val value = Double.MAX_VALUE
-        val out = Prefs.write().double(Const.SAMPLE_DOUBLE_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().double(Const.SAMPLE_DOUBLE_KEY, value))
 
         val data = Prefs.read().double(Const.SAMPLE_DOUBLE_KEY, Double.MIN_VALUE)
         assertEquals(value.toString(), data.toString())
@@ -119,8 +115,7 @@ class ExampleInstrumentedTest {
     @Test
     fun testBoolean() {
         val value = false
-        val out = Prefs.write().boolean(Const.SAMPLE_BOOLEAN_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().boolean(Const.SAMPLE_BOOLEAN_KEY, value))
 
         val data = Prefs.read().boolean(Const.SAMPLE_BOOLEAN_KEY, true)
         assertEquals(value, data)
@@ -138,17 +133,16 @@ class ExampleInstrumentedTest {
     @Test
     fun testStringSet() {
         val value = setOf("A", "B", "C", "D")
-        val out = Prefs.write().stringSet(Const.SAMPLE_BOOLEAN_KEY, value)
-        assertEquals(true, out)
+        assertTrue(Prefs.write().stringSet(Const.SAMPLE_STRING_SET_KEY, value))
 
-        val data = Prefs.read().stringSet(Const.SAMPLE_BOOLEAN_KEY, setOf())
+        val data = Prefs.read().stringSet(Const.SAMPLE_STRING_SET_KEY, setOf())
         assertEquals(value, data)
     }
 
     @Test
     fun testStringSetAsync() {
         val value = setOf("A", "B", "C", "D")
-        Prefs.write().stringSetAsync(Const.SAMPLE_STRING_SET_KEY, value)
+        Prefs.write().stringSetAsync(Const.SAMPLE_STRING_SET_KEY_ASYNC, value)
 
         val data = Prefs.read().stringSet(Const.SAMPLE_STRING_SET_KEY_ASYNC, setOf())
         assertEquals(value, data)

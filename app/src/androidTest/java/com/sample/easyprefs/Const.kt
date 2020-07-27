@@ -1,6 +1,9 @@
 package com.sample.easyprefs
 
 object Const {
+    const val PREF_SAMPLE_FILE = "sample_file_name"
+    const val PREF_SAMPLE_FILE_2 = "sample_file_name_two"
+
     const val SAMPLE_STRING_KEY = "sample_string_key"
     const val SAMPLE_STRING_KEY_ASYNC = "sample_string_key_async"
 
