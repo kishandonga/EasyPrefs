@@ -2,11 +2,24 @@ package io.easyprefs.impl
 
 import android.content.SharedPreferences
 import io.easyprefs.contract.Write
+import io.easyprefs.typedef.Encryption
 
-class WriteImpl(private val edit: SharedPreferences.Editor) : Write {
+class WriteImpl(
+    private val edit: SharedPreferences.Editor,
+    private val encType: Encryption,
+    private val aesKey: String
+) : Write {
 
     override fun int(key: String, value: Int): Boolean {
-        return edit.putInt(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putInt(key, value).commit()
+        } else {
+            if (aesKey.isEmpty()) {
+                edit.putInt(key, value).commit()
+            } else {
+                edit.putInt(key, value).commit()
+            }
+        }
     }
 
     override fun intAsync(key: String, value: Int) {

@@ -5,37 +5,50 @@ import io.easyprefs.contract.EasyPref
 import io.easyprefs.contract.Edit
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Write
+import io.easyprefs.typedef.Encryption
 
 object EasyPrefImpl : EasyPref {
 
-    override fun write(context: Context): Write {
+    override fun write(context: Context, encType: Encryption, aesKey: String): Write {
         return WriteImpl(
             context.getSharedPreferences(
                 getFileName(context),
                 Context.MODE_PRIVATE
-            ).edit()
+            ).edit(),
+            encType, aesKey
         )
     }
 
-    override fun writeOn(context: Context, fileName: String): Write {
+    override fun writeOn(
+        context: Context,
+        fileName: String,
+        encType: Encryption,
+        aesKey: String
+    ): Write {
         return WriteImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 Context.MODE_PRIVATE
-            ).edit()
+            ).edit(), encType, aesKey
         )
     }
 
-    override fun writeOn(context: Context, fileName: String, mode: Int): Write {
+    override fun writeOn(
+        context: Context,
+        fileName: String,
+        mode: Int,
+        encType: Encryption,
+        aesKey: String
+    ): Write {
         return WriteImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 mode
-            ).edit()
+            ).edit(), encType, aesKey
         )
     }
 
-    override fun read(context: Context): Read {
+    override fun read(context: Context, encType: Encryption, aesKey: String): Read {
         return ReadImpl(
             context.getSharedPreferences(
                 getFileName(context),
@@ -44,7 +57,12 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun readOn(context: Context, fileName: String): Read {
+    override fun readOn(
+        context: Context,
+        fileName: String,
+        encType: Encryption,
+        aesKey: String
+    ): Read {
         return ReadImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
@@ -53,7 +71,13 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun readOn(context: Context, fileName: String, mode: Int): Read {
+    override fun readOn(
+        context: Context,
+        fileName: String,
+        mode: Int,
+        encType: Encryption,
+        aesKey: String
+    ): Read {
         return ReadImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
@@ -62,7 +86,7 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun edit(context: Context): Edit {
+    override fun edit(context: Context, encType: Encryption, aesKey: String): Edit {
         return EditImpl(
             context.getSharedPreferences(
                 getFileName(context),
@@ -71,7 +95,12 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun editOn(context: Context, fileName: String): Edit {
+    override fun editOn(
+        context: Context,
+        fileName: String,
+        encType: Encryption,
+        aesKey: String
+    ): Edit {
         return EditImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
@@ -80,7 +109,13 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun editOn(context: Context, fileName: String, mode: Int): Edit {
+    override fun editOn(
+        context: Context,
+        fileName: String,
+        mode: Int,
+        encType: Encryption,
+        aesKey: String
+    ): Edit {
         return EditImpl(
             context.getSharedPreferences(
                 getFileNameOn(fileName),
