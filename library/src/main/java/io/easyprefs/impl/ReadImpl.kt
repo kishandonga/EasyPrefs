@@ -2,11 +2,36 @@ package io.easyprefs.impl
 
 import android.content.SharedPreferences
 import io.easyprefs.contract.Read
+import io.easyprefs.secure.Crypt
+import io.easyprefs.typedef.Encryption
 
-class ReadImpl(private val pref: SharedPreferences) : Read {
+class ReadImpl(
+    private val pref: SharedPreferences,
+    private val encType: Encryption,
+    private val aesKey: String
+) : Read {
 
     override fun int(key: String, defaultValue: Int): Int {
-        return pref.getInt(key, defaultValue)
+        return if (encType == Encryption.NONE) {
+            pref.getInt(key, defaultValue)
+        } else {
+            decrypt(key, defaultValue.toString()).toInt()
+        }
+    }
+
+    private fun decrypt(key: String, defaultValue: String): String {
+        var value = pref.getString(key, defaultValue) ?: defaultValue
+        return if (aesKey.isEmpty()) {
+            if (value != defaultValue) {
+                value = Crypt.decrypt(key, value)
+            }
+            value
+        } else {
+            if (value != defaultValue) {
+                value = Crypt.decrypt(aesKey, value)
+            }
+            value
+        }
     }
 
     override fun string(key: String, defaultValue: String): String {

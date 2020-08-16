@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec
  * Encrypt and decrypt messages using AES 256 bit encryption that are compatible with AESCrypt-ObjC and AESCrypt Ruby.
  */
 @Suppress("unused")
-object AESCrypt {
+object AesCrypt {
 
     //AESCrypt-ObjC uses CBC and PKCS7Padding
     private const val AES_MODE = "AES/CBC/PKCS7Padding"

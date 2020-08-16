@@ -2,7 +2,11 @@ package io.easyprefs.impl
 
 import android.content.SharedPreferences
 import io.easyprefs.contract.Write
+import io.easyprefs.secure.Crypt
 import io.easyprefs.typedef.Encryption
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONArray
 
 class WriteImpl(
     private val edit: SharedPreferences.Editor,
@@ -14,63 +18,129 @@ class WriteImpl(
         return if (encType == Encryption.NONE) {
             edit.putInt(key, value).commit()
         } else {
+            crypt(key, value.toString())
+        }
+    }
+
+    private fun crypt(key: String, value: String): Boolean {
+        return if (aesKey.isEmpty()) {
+            edit.putString(key, Crypt.encrypt(key, value)).commit()
+        } else {
+            edit.putString(key, Crypt.encrypt(aesKey, value)).commit()
+        }
+    }
+
+    private fun cryptAsync(key: String, value: String) {
+        GlobalScope.launch {
             if (aesKey.isEmpty()) {
-                edit.putInt(key, value).commit()
+                edit.putString(key, Crypt.encrypt(key, value)).apply()
             } else {
-                edit.putInt(key, value).commit()
+                edit.putString(key, Crypt.encrypt(aesKey, value)).apply()
             }
         }
     }
 
     override fun intAsync(key: String, value: Int) {
-        edit.putInt(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putInt(key, value).apply()
+        } else {
+            cryptAsync(key, value.toString())
+        }
     }
 
     override fun string(key: String, value: String): Boolean {
-        return edit.putString(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putString(key, value).commit()
+        } else {
+            crypt(key, value)
+        }
     }
 
     override fun stringAsync(key: String, value: String) {
-        edit.putString(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putString(key, value).apply()
+        } else {
+            cryptAsync(key, value)
+        }
     }
 
     override fun long(key: String, value: Long): Boolean {
-        return edit.putLong(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putLong(key, value).commit()
+        } else {
+            crypt(key, value.toString())
+        }
     }
 
     override fun longAsync(key: String, value: Long) {
-        edit.putLong(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putLong(key, value).apply()
+        } else {
+            cryptAsync(key, value.toString())
+        }
     }
 
     override fun float(key: String, value: Float): Boolean {
-        return edit.putFloat(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putFloat(key, value).commit()
+        } else {
+            crypt(key, value.toString())
+        }
     }
 
     override fun floatAsync(key: String, value: Float) {
-        edit.putFloat(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putFloat(key, value).apply()
+        } else {
+            cryptAsync(key, value.toString())
+        }
     }
 
     override fun double(key: String, value: Double): Boolean {
-        return string(key, value.toString())
+        return if (encType == Encryption.NONE) {
+            string(key, value.toString())
+        } else {
+            crypt(key, value.toString())
+        }
     }
 
     override fun doubleAsync(key: String, value: Double) {
-        stringAsync(key, value.toString())
+        if (encType == Encryption.NONE) {
+            stringAsync(key, value.toString())
+        } else {
+            cryptAsync(key, value.toString())
+        }
     }
 
     override fun boolean(key: String, value: Boolean): Boolean {
-        return edit.putBoolean(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putBoolean(key, value).commit()
+        } else {
+            crypt(key, value.toString())
+        }
     }
 
     override fun booleanAsync(key: String, value: Boolean) {
-        edit.putBoolean(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putBoolean(key, value).apply()
+        } else {
+            cryptAsync(key, value.toString())
+        }
     }
 
     override fun stringSet(key: String, value: Set<String>): Boolean {
-        return edit.putStringSet(key, value).commit()
+        return if (encType == Encryption.NONE) {
+            edit.putStringSet(key, value).commit()
+        } else {
+            crypt(key, JSONArray(value).toString())
+        }
     }
 
     override fun stringSetAsync(key: String, value: Set<String>) {
-        edit.putStringSet(key, value).apply()
+        if (encType == Encryption.NONE) {
+            edit.putStringSet(key, value).apply()
+        } else {
+            cryptAsync(key, JSONArray(value).toString())
+        }
     }
 }

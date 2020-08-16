@@ -53,7 +53,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileName(context),
                 Context.MODE_PRIVATE
-            )
+            ), encType, aesKey
         )
     }
 
@@ -67,7 +67,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 Context.MODE_PRIVATE
-            )
+            ), encType, aesKey
         )
     }
 
@@ -82,7 +82,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 mode
-            )
+            ), encType, aesKey
         )
     }
 
@@ -91,7 +91,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileName(context),
                 Context.MODE_PRIVATE
-            ).edit()
+            )
         )
     }
 
@@ -105,7 +105,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 Context.MODE_PRIVATE
-            ).edit()
+            )
         )
     }
 
@@ -120,7 +120,7 @@ object EasyPrefImpl : EasyPref {
             context.getSharedPreferences(
                 getFileNameOn(fileName),
                 mode
-            ).edit()
+            )
         )
     }
 
