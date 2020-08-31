@@ -4,8 +4,10 @@ import android.content.SharedPreferences
 import io.easyprefs.contract.Write
 import io.easyprefs.secure.Crypt
 import io.easyprefs.typedef.Encryption
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 
 class WriteImpl(
@@ -30,13 +32,20 @@ class WriteImpl(
         }
     }
 
-    private fun cryptAsync(key: String, value: String) {
-        GlobalScope.launch {
+    private suspend fun cryptAsyncSuspend(key: String, value: String): String {
+        return withContext(Dispatchers.IO) {
             if (aesKey.isEmpty()) {
-                edit.putString(key, Crypt.encrypt(key, value)).apply()
+                Crypt.encrypt(key, value)
             } else {
-                edit.putString(key, Crypt.encrypt(aesKey, value)).apply()
+                Crypt.encrypt(aesKey, value)
             }
+        }
+    }
+
+    private fun cryptAsync(key: String, value: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val encrypted = cryptAsyncSuspend(key, value)
+            edit.putString(key, encrypted).apply()
         }
     }
 
