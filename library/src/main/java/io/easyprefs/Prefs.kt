@@ -2,20 +2,35 @@ package io.easyprefs
 
 import android.content.Context
 import io.easyprefs.contract.Edit
-import io.easyprefs.contract.PrefProvider
 import io.easyprefs.contract.Read
+import io.easyprefs.contract.Secure
 import io.easyprefs.contract.Write
+import io.easyprefs.contract.provider.PrefProvider
 import io.easyprefs.error.PrefsEditContextException
 import io.easyprefs.error.PrefsReadContextException
 import io.easyprefs.error.PrefsWriteContextException
+import io.easyprefs.ext.Pass
 import io.easyprefs.impl.EasyPrefImpl
+import io.easyprefs.impl.SecureImpl
+import io.easyprefs.typedef.Encryption
 
 object Prefs : PrefProvider {
 
     private lateinit var context: Context
 
-    fun initializeApp(context: Context) {
+    override fun initializeApp(context: Context) {
         this.context = context.applicationContext
+    }
+
+    override fun securely(): Secure {
+        return securely(Pass.empty)
+    }
+
+    override fun securely(aesKey: String): Secure {
+        val secure = SecureImpl
+        secure.context = context
+        secure.aesKey = aesKey
+        return secure
     }
 
     override fun write(): Write {
@@ -40,15 +55,15 @@ object Prefs : PrefProvider {
     }
 
     override fun write(context: Context): Write {
-        return EasyPrefImpl.write(context)
+        return EasyPrefImpl.write(context, Encryption.NONE, Pass.empty)
     }
 
     override fun write(context: Context, fileName: String): Write {
-        return EasyPrefImpl.writeOn(context, fileName)
+        return EasyPrefImpl.writeOn(context, fileName, Encryption.NONE, Pass.empty)
     }
 
     override fun write(context: Context, fileName: String, mode: Int): Write {
-        return EasyPrefImpl.writeOn(context, fileName, mode)
+        return EasyPrefImpl.writeOn(context, fileName, mode, Encryption.NONE, Pass.empty)
     }
 
     override fun read(): Read {
@@ -73,15 +88,15 @@ object Prefs : PrefProvider {
     }
 
     override fun read(context: Context): Read {
-        return EasyPrefImpl.read(context)
+        return EasyPrefImpl.read(context, Encryption.NONE, Pass.empty)
     }
 
     override fun read(context: Context, fileName: String): Read {
-        return EasyPrefImpl.readOn(context, fileName)
+        return EasyPrefImpl.readOn(context, fileName, Encryption.NONE, Pass.empty)
     }
 
     override fun read(context: Context, fileName: String, mode: Int): Read {
-        return EasyPrefImpl.readOn(context, fileName, mode)
+        return EasyPrefImpl.readOn(context, fileName, mode, Encryption.NONE, Pass.empty)
     }
 
     override fun edit(): Edit {
@@ -106,14 +121,14 @@ object Prefs : PrefProvider {
     }
 
     override fun edit(context: Context): Edit {
-        return EasyPrefImpl.edit(context)
+        return EasyPrefImpl.edit(context, Encryption.NONE, Pass.empty)
     }
 
     override fun edit(context: Context, fileName: String): Edit {
-        return EasyPrefImpl.editOn(context, fileName)
+        return EasyPrefImpl.editOn(context, fileName, Encryption.NONE, Pass.empty)
     }
 
     override fun edit(context: Context, fileName: String, mode: Int): Edit {
-        return EasyPrefImpl.editOn(context, fileName, mode)
+        return EasyPrefImpl.editOn(context, fileName, mode, Encryption.NONE, Pass.empty)
     }
 }

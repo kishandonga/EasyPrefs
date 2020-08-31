@@ -6,4 +6,6 @@ interface Edit {
 
     fun remove(key: String): Boolean
     fun removeAsync(key: String)
+
+    fun hasKey(key: String): Boolean
 }
