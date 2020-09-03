@@ -1,1 +1,7 @@
-<manifest package="io.easyprefs" />
+<manifest package="io.easyprefs"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-sdk
+        android:minSdkVersion="16"
+        tools:overrideLibrary="androidx.security" />
+</manifest>

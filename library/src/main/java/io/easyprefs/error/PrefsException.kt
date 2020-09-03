@@ -6,5 +6,11 @@ class PrefsWriteContextException :
 class PrefsReadContextException :
     Exception("Context not initialize yet use like Prefs.initializeApp(context) or Prefs.read(context)")
 
-class PrefsEditContextException :
-    Exception("Context not initialize yet use like Prefs.initializeApp(context) or Prefs.edit(context)")
+class PrefsClearContextException :
+    Exception("Context not initialize yet use like Prefs.initializeApp(context) or Prefs.clear(context)")
+
+class PrefsRemoveContextException :
+    Exception("Context not initialize yet use like Prefs.initializeApp(context) or Prefs.remove(context)")
+
+class PrefsHasContextException :
+    Exception("Context not initialize yet use like Prefs.initializeApp(context) or Prefs.has(context)")

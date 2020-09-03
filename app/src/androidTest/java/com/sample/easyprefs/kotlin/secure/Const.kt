@@ -1,4 +1,4 @@
-package com.sample.easyprefs.secure
+package com.sample.easyprefs.kotlin.secure
 
 object Const {
     const val PREF_SAMPLE_FILE = "secure_sample_file_name"

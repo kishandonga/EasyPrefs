@@ -4,27 +4,18 @@ import android.content.Context
 import io.easyprefs.typedef.Encryption
 
 interface EasyPref {
-    fun write(context: Context, encType: Encryption, aesKey: String): Write
-    fun writeOn(context: Context, fileName: String, encType: Encryption, aesKey: String): Write
-    fun writeOn(
-        context: Context,
-        fileName: String,
-        mode: Int, encType: Encryption, aesKey: String
-    ): Write
+    fun write(context: Context, encType: Encryption): Write
+    fun writeOn(context: Context, fileName: String, encType: Encryption): Write
 
-    fun read(context: Context, encType: Encryption, aesKey: String): Read
-    fun readOn(context: Context, fileName: String, encType: Encryption, aesKey: String): Read
-    fun readOn(
-        context: Context,
-        fileName: String,
-        mode: Int, encType: Encryption, aesKey: String
-    ): Read
+    fun read(context: Context, encType: Encryption): Read
+    fun readOn(context: Context, fileName: String, encType: Encryption): Read
 
-    fun edit(context: Context, encType: Encryption, aesKey: String): Edit
-    fun editOn(context: Context, fileName: String, encType: Encryption, aesKey: String): Edit
-    fun editOn(
-        context: Context,
-        fileName: String,
-        mode: Int, encType: Encryption, aesKey: String
-    ): Edit
+    fun clear(context: Context): Clear
+    fun clearOn(context: Context, fileName: String): Clear
+
+    fun remove(context: Context): Remove
+    fun removeOn(context: Context, fileName: String): Remove
+
+    fun has(context: Context): Has
+    fun hasOn(context: Context, fileName: String): Has
 }

@@ -1,134 +1,155 @@
 package io.easyprefs
 
 import android.content.Context
-import io.easyprefs.contract.Edit
-import io.easyprefs.contract.Read
-import io.easyprefs.contract.Secure
-import io.easyprefs.contract.Write
-import io.easyprefs.contract.provider.PrefProvider
-import io.easyprefs.error.PrefsEditContextException
-import io.easyprefs.error.PrefsReadContextException
-import io.easyprefs.error.PrefsWriteContextException
-import io.easyprefs.ext.Pass
+import io.easyprefs.contract.*
+import io.easyprefs.error.*
 import io.easyprefs.impl.EasyPrefImpl
 import io.easyprefs.impl.SecureImpl
 import io.easyprefs.typedef.Encryption
 
-object Prefs : PrefProvider {
+object Prefs {
 
     private lateinit var context: Context
 
-    override fun initializeApp(context: Context) {
+    @JvmStatic
+    fun initializeApp(context: Context) {
         this.context = context.applicationContext
     }
 
-    override fun securely(): Secure {
-        return securely(Pass.empty)
-    }
-
-    override fun securely(aesKey: String): Secure {
+    @JvmStatic
+    fun securely(): Secure {
         val secure = SecureImpl
         secure.context = context
-        secure.aesKey = aesKey
         return secure
     }
 
-    override fun write(): Write {
+    @JvmStatic
+    fun write(): Write {
         if (this::context.isInitialized) {
             return write(context)
         }
         throw PrefsWriteContextException()
     }
 
-    override fun write(fileName: String): Write {
+    @JvmStatic
+    fun write(fileName: String): Write {
         if (this::context.isInitialized) {
             return write(context, fileName)
         }
         throw PrefsWriteContextException()
     }
 
-    override fun write(fileName: String, mode: Int): Write {
-        if (this::context.isInitialized) {
-            return write(context, fileName, mode)
-        }
-        throw PrefsWriteContextException()
+    @JvmStatic
+    fun write(context: Context): Write {
+        return EasyPrefImpl.write(context, Encryption.NONE)
     }
 
-    override fun write(context: Context): Write {
-        return EasyPrefImpl.write(context, Encryption.NONE, Pass.empty)
+    @JvmStatic
+    fun write(context: Context, fileName: String): Write {
+        return EasyPrefImpl.writeOn(context, fileName, Encryption.NONE)
     }
 
-    override fun write(context: Context, fileName: String): Write {
-        return EasyPrefImpl.writeOn(context, fileName, Encryption.NONE, Pass.empty)
-    }
-
-    override fun write(context: Context, fileName: String, mode: Int): Write {
-        return EasyPrefImpl.writeOn(context, fileName, mode, Encryption.NONE, Pass.empty)
-    }
-
-    override fun read(): Read {
+    @JvmStatic
+    fun read(): Read {
         if (this::context.isInitialized) {
             return read(context)
         }
         throw PrefsReadContextException()
     }
 
-    override fun read(fileName: String): Read {
+    @JvmStatic
+    fun read(fileName: String): Read {
         if (this::context.isInitialized) {
             return read(context, fileName)
         }
         throw PrefsReadContextException()
     }
 
-    override fun read(fileName: String, mode: Int): Read {
+    @JvmStatic
+    fun read(context: Context): Read {
+        return EasyPrefImpl.read(context, Encryption.NONE)
+    }
+
+    @JvmStatic
+    fun read(context: Context, fileName: String): Read {
+        return EasyPrefImpl.readOn(context, fileName, Encryption.NONE)
+    }
+
+    @JvmStatic
+    fun clear(): Clear {
         if (this::context.isInitialized) {
-            return read(context, fileName, mode)
+            return clear(context)
         }
-        throw PrefsReadContextException()
+        throw PrefsClearContextException()
     }
 
-    override fun read(context: Context): Read {
-        return EasyPrefImpl.read(context, Encryption.NONE, Pass.empty)
-    }
-
-    override fun read(context: Context, fileName: String): Read {
-        return EasyPrefImpl.readOn(context, fileName, Encryption.NONE, Pass.empty)
-    }
-
-    override fun read(context: Context, fileName: String, mode: Int): Read {
-        return EasyPrefImpl.readOn(context, fileName, mode, Encryption.NONE, Pass.empty)
-    }
-
-    override fun edit(): Edit {
+    @JvmStatic
+    fun clear(fileName: String): Clear {
         if (this::context.isInitialized) {
-            return edit(context)
+            return clear(context, fileName)
         }
-        throw PrefsEditContextException()
+        throw PrefsClearContextException()
     }
 
-    override fun edit(fileName: String): Edit {
+    @JvmStatic
+    fun clear(context: Context): Clear {
+        return EasyPrefImpl.clear(context)
+    }
+
+    @JvmStatic
+    fun clear(context: Context, fileName: String): Clear {
+        return EasyPrefImpl.clearOn(context, fileName)
+    }
+
+    @JvmStatic
+    fun remove(): Remove {
         if (this::context.isInitialized) {
-            return edit(context, fileName)
+            return remove(context)
         }
-        throw PrefsEditContextException()
+        throw PrefsRemoveContextException()
     }
 
-    override fun edit(fileName: String, mode: Int): Edit {
+    @JvmStatic
+    fun remove(fileName: String): Remove {
         if (this::context.isInitialized) {
-            return edit(context, fileName, mode)
+            return remove(context, fileName)
         }
-        throw PrefsEditContextException()
+        throw PrefsRemoveContextException()
     }
 
-    override fun edit(context: Context): Edit {
-        return EasyPrefImpl.edit(context, Encryption.NONE, Pass.empty)
+    @JvmStatic
+    fun remove(context: Context): Remove {
+        return EasyPrefImpl.remove(context)
     }
 
-    override fun edit(context: Context, fileName: String): Edit {
-        return EasyPrefImpl.editOn(context, fileName, Encryption.NONE, Pass.empty)
+    @JvmStatic
+    fun remove(context: Context, fileName: String): Remove {
+        return EasyPrefImpl.removeOn(context, fileName)
     }
 
-    override fun edit(context: Context, fileName: String, mode: Int): Edit {
-        return EasyPrefImpl.editOn(context, fileName, mode, Encryption.NONE, Pass.empty)
+    @JvmStatic
+    fun has(): Has {
+        if (this::context.isInitialized) {
+            return has(context)
+        }
+        throw PrefsHasContextException()
+    }
+
+    @JvmStatic
+    fun has(fileName: String): Has {
+        if (this::context.isInitialized) {
+            return has(context, fileName)
+        }
+        throw PrefsHasContextException()
+    }
+
+    @JvmStatic
+    fun has(context: Context): Has {
+        return EasyPrefImpl.has(context)
+    }
+
+    @JvmStatic
+    fun has(context: Context, fileName: String): Has {
+        return EasyPrefImpl.hasOn(context, fileName)
     }
 }

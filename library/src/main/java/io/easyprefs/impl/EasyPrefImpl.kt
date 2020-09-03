@@ -1,125 +1,106 @@
 package io.easyprefs.impl
 
 import android.content.Context
-import io.easyprefs.contract.EasyPref
-import io.easyprefs.contract.Edit
-import io.easyprefs.contract.Read
-import io.easyprefs.contract.Write
+import io.easyprefs.contract.*
 import io.easyprefs.typedef.Encryption
 
 object EasyPrefImpl : EasyPref {
 
-    override fun write(context: Context, encType: Encryption, aesKey: String): Write {
+    override fun write(context: Context, encType: Encryption): Write {
         return WriteImpl(
-            context.getSharedPreferences(
-                getFileName(context),
-                Context.MODE_PRIVATE
-            ).edit(),
-            encType, aesKey
+            PrefProvider.getPrefEditor(context, getFileName(context), encType),
+            encType
         )
     }
 
     override fun writeOn(
         context: Context,
         fileName: String,
-        encType: Encryption,
-        aesKey: String
+        encType: Encryption
     ): Write {
         return WriteImpl(
-            context.getSharedPreferences(
-                getFileNameOn(fileName),
-                Context.MODE_PRIVATE
-            ).edit(), encType, aesKey
+            PrefProvider.getPrefEditor(context, getFileNameOn(fileName), encType),
+            encType
         )
     }
 
-    override fun writeOn(
-        context: Context,
-        fileName: String,
-        mode: Int,
-        encType: Encryption,
-        aesKey: String
-    ): Write {
-        return WriteImpl(
-            context.getSharedPreferences(
-                getFileNameOn(fileName),
-                mode
-            ).edit(), encType, aesKey
-        )
-    }
-
-    override fun read(context: Context, encType: Encryption, aesKey: String): Read {
+    override fun read(context: Context, encType: Encryption): Read {
         return ReadImpl(
-            context.getSharedPreferences(
-                getFileName(context),
-                Context.MODE_PRIVATE
-            ), encType, aesKey
+            PrefProvider.getPref(context, getFileName(context), encType),
+            encType
         )
     }
 
     override fun readOn(
         context: Context,
         fileName: String,
-        encType: Encryption,
-        aesKey: String
+        encType: Encryption
     ): Read {
         return ReadImpl(
-            context.getSharedPreferences(
-                getFileNameOn(fileName),
-                Context.MODE_PRIVATE
-            ), encType, aesKey
+            PrefProvider.getPref(context, getFileName(context), encType),
+            encType
         )
     }
 
-    override fun readOn(
-        context: Context,
-        fileName: String,
-        mode: Int,
-        encType: Encryption,
-        aesKey: String
-    ): Read {
-        return ReadImpl(
-            context.getSharedPreferences(
-                getFileNameOn(fileName),
-                mode
-            ), encType, aesKey
-        )
-    }
-
-    override fun edit(context: Context, encType: Encryption, aesKey: String): Edit {
-        return EditImpl(
-            context.getSharedPreferences(
+    override fun clear(context: Context): Clear {
+        return ClearImpl(
+            PrefProvider.getPrefEditor(
+                context,
                 getFileName(context),
-                Context.MODE_PRIVATE
+                Encryption.NONE
+            ),
+        )
+    }
+
+    override fun clearOn(
+        context: Context,
+        fileName: String
+    ): Clear {
+        return ClearImpl(
+            PrefProvider.getPrefEditor(
+                context,
+                getFileNameOn(fileName),
+                Encryption.NONE
             )
         )
     }
 
-    override fun editOn(
-        context: Context,
-        fileName: String,
-        encType: Encryption,
-        aesKey: String
-    ): Edit {
-        return EditImpl(
-            context.getSharedPreferences(
-                getFileNameOn(fileName),
-                Context.MODE_PRIVATE
+    override fun remove(context: Context): Remove {
+        return RemoveImpl(
+            PrefProvider.getPrefEditor(
+                context,
+                getFileName(context),
+                Encryption.NONE
             )
         )
     }
 
-    override fun editOn(
-        context: Context,
-        fileName: String,
-        mode: Int,
-        encType: Encryption,
-        aesKey: String
-    ): Edit {
-        return EditImpl(
-            context.getSharedPreferences(
+    override fun removeOn(context: Context, fileName: String): Remove {
+        return RemoveImpl(
+            PrefProvider.getPrefEditor(
+                context,
                 getFileNameOn(fileName),
-                mode
+                Encryption.NONE
+            )
+        )
+    }
+
+    override fun has(context: Context): Has {
+        return HasImpl(
+            PrefProvider.getPref(
+                context,
+                getFileName(context),
+                Encryption.NONE
+            )
+        )
+    }
+
+    override fun hasOn(context: Context, fileName: String): Has {
+        return HasImpl(
+            PrefProvider.getPref(
+                context,
+                getFileNameOn(fileName),
+                Encryption.NONE
             )
         )
     }
