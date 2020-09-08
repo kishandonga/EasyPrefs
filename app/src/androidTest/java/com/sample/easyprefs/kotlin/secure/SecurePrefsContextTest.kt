@@ -1,5 +1,6 @@
 package com.sample.easyprefs.kotlin.secure
 
+import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.easyprefs.Prefs
@@ -14,7 +15,9 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class SecurePrefsTest {
+class SecurePrefsContextTest {
+
+    private lateinit var context: Context
 
     private val p1 = "Hello..."
     private val p2 = Int.MAX_VALUE
@@ -26,13 +29,14 @@ class SecurePrefsTest {
 
     @Before
     fun initApp() {
-        Prefs.initializeApp(InstrumentationRegistry.getInstrumentation().targetContext)
+        //Prefs.initializeApp()
+        context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 
     @Test
     fun testCommitOp() {
         Assert.assertTrue(
-            Prefs.securely().write()
+            Prefs.securely().write(context)
                 .content(Const.SAMPLE_STRING_KEY, p1)
                 .content(Const.SAMPLE_INT_KEY, p2)
                 .content(Const.SAMPLE_FLOAT_KEY, p3)
@@ -47,31 +51,31 @@ class SecurePrefsTest {
     @Test
     fun testReadCommitOp() {
 
-        val o1 = Prefs.securely().read().content(Const.SAMPLE_STRING_KEY, "")
+        val o1 = Prefs.securely().read(context).content(Const.SAMPLE_STRING_KEY, "")
         Assert.assertEquals(p1, o1)
 
-        val o2 = Prefs.securely().read().content(Const.SAMPLE_INT_KEY, Int.MIN_VALUE)
+        val o2 = Prefs.securely().read(context).content(Const.SAMPLE_INT_KEY, Int.MIN_VALUE)
         Assert.assertEquals(p2, o2)
 
-        val o3 = Prefs.securely().read().content(Const.SAMPLE_FLOAT_KEY, Float.MIN_VALUE)
+        val o3 = Prefs.securely().read(context).content(Const.SAMPLE_FLOAT_KEY, Float.MIN_VALUE)
         Assert.assertEquals(p3, o3)
 
-        val o4 = Prefs.securely().read().content(Const.SAMPLE_LONG_KEY, Long.MIN_VALUE)
+        val o4 = Prefs.securely().read(context).content(Const.SAMPLE_LONG_KEY, Long.MIN_VALUE)
         Assert.assertEquals(p4, o4)
 
-        val o5 = Prefs.securely().read().content(Const.SAMPLE_DOUBLE_KEY, Double.MIN_VALUE)
+        val o5 = Prefs.securely().read(context).content(Const.SAMPLE_DOUBLE_KEY, Double.MIN_VALUE)
         Assert.assertEquals(p5.toString(), o5.toString())
 
-        val o6 = Prefs.securely().read().content(Const.SAMPLE_BOOLEAN_KEY, true)
+        val o6 = Prefs.securely().read(context).content(Const.SAMPLE_BOOLEAN_KEY, true)
         Assert.assertEquals(p6, o6)
 
-        val o7 = Prefs.securely().read().content(Const.SAMPLE_STRING_SET_KEY, setOf())
+        val o7 = Prefs.securely().read(context).content(Const.SAMPLE_STRING_SET_KEY, setOf())
         Assert.assertEquals(p7, o7)
     }
 
     @Test
     fun testApplyOp() {
-        Prefs.securely().write()
+        Prefs.securely().write(context)
             .content(Const.SAMPLE_STRING_KEY_APPLY, p1)
             .content(Const.SAMPLE_INT_KEY_APPLY, p2)
             .content(Const.SAMPLE_FLOAT_KEY_APPLY, p3)
@@ -81,25 +85,25 @@ class SecurePrefsTest {
             .content(Const.SAMPLE_STRING_SET_KEY_APPLY, p7)
             .apply()
 
-        val o1 = Prefs.securely().read().content(Const.SAMPLE_STRING_KEY_APPLY, "")
+        val o1 = Prefs.securely().read(context).content(Const.SAMPLE_STRING_KEY_APPLY, "")
         Assert.assertEquals(p1, o1)
 
-        val o2 = Prefs.securely().read().content(Const.SAMPLE_INT_KEY_APPLY, Int.MIN_VALUE)
+        val o2 = Prefs.securely().read(context).content(Const.SAMPLE_INT_KEY_APPLY, Int.MIN_VALUE)
         Assert.assertEquals(p2, o2)
 
-        val o3 = Prefs.securely().read().content(Const.SAMPLE_FLOAT_KEY_APPLY, Float.MIN_VALUE)
+        val o3 = Prefs.securely().read(context).content(Const.SAMPLE_FLOAT_KEY_APPLY, Float.MIN_VALUE)
         Assert.assertEquals(p3, o3)
 
-        val o4 = Prefs.securely().read().content(Const.SAMPLE_LONG_KEY_APPLY, Long.MIN_VALUE)
+        val o4 = Prefs.securely().read(context).content(Const.SAMPLE_LONG_KEY_APPLY, Long.MIN_VALUE)
         Assert.assertEquals(p4, o4)
 
-        val o5 = Prefs.securely().read().content(Const.SAMPLE_DOUBLE_KEY_APPLY, Double.MIN_VALUE)
+        val o5 = Prefs.securely().read(context).content(Const.SAMPLE_DOUBLE_KEY_APPLY, Double.MIN_VALUE)
         Assert.assertEquals(p5.toString(), o5.toString())
 
-        val o6 = Prefs.securely().read().content(Const.SAMPLE_BOOLEAN_KEY_APPLY, true)
+        val o6 = Prefs.securely().read(context).content(Const.SAMPLE_BOOLEAN_KEY_APPLY, true)
         Assert.assertEquals(p6, o6)
 
-        val o7 = Prefs.securely().read().content(Const.SAMPLE_STRING_SET_KEY_APPLY, setOf())
+        val o7 = Prefs.securely().read(context).content(Const.SAMPLE_STRING_SET_KEY_APPLY, setOf())
         Assert.assertEquals(p7, o7)
     }
 }

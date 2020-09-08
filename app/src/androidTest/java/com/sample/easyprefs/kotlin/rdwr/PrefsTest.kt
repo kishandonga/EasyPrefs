@@ -82,10 +82,6 @@ class PrefsTest {
             .content(Const.SAMPLE_BOOLEAN_KEY_APPLY, p6)
             .content(Const.SAMPLE_STRING_SET_KEY_APPLY, p7)
             .apply()
-    }
-
-    @Test
-    fun testReadApplyOp() {
 
         val o1 = Prefs.read().content(Const.SAMPLE_STRING_KEY_APPLY, "")
         assertEquals(p1, o1)

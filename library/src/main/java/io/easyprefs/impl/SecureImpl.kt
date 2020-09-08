@@ -10,18 +10,18 @@ import io.easyprefs.typedef.Encryption
 
 object SecureImpl : Secure {
 
-    lateinit var context: Context
+    var context: Context? = null
 
     override fun write(): Write {
-        if (this::context.isInitialized) {
-            return write(context)
+        if (context != null) {
+            return write(context!!)
         }
         throw PrefsWriteContextException()
     }
 
     override fun write(fileName: String): Write {
-        if (this::context.isInitialized) {
-            return write(context, fileName)
+        if (context != null) {
+            return write(context!!, fileName)
         }
         throw PrefsWriteContextException()
     }
@@ -35,15 +35,15 @@ object SecureImpl : Secure {
     }
 
     override fun read(): Read {
-        if (this::context.isInitialized) {
-            return read(context)
+        if (context != null) {
+            return read(context!!)
         }
         throw PrefsReadContextException()
     }
 
     override fun read(fileName: String): Read {
-        if (this::context.isInitialized) {
-            return read(context, fileName)
+        if (context != null) {
+            return read(context!!, fileName)
         }
         throw PrefsReadContextException()
     }

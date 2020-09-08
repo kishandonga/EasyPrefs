@@ -26,7 +26,7 @@ class WriteImpl(
     }
 
     private fun crypt(key: String, value: String) {
-        edit.putString(key, Crypt.encrypt(key, value))
+        edit.putString(Crypt.encrypt(key, key), Crypt.encrypt(key, value))
     }
 
     override fun content(key: String, value: String): Write {

@@ -19,7 +19,11 @@ object Prefs {
     @JvmStatic
     fun securely(): Secure {
         val secure = SecureImpl
-        secure.context = context
+        if (this::context.isInitialized) {
+            secure.context = context
+        } else {
+            secure.context = null
+        }
         return secure
     }
 
