@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'com.github.kishandonga:EasyPrefs:1.1'
+    implementation 'com.github.kishandonga:EasyPrefs:1.1'
 }
 ```
 
@@ -47,29 +47,29 @@ class MainApp : Application() {
 
 ```kotlin
 Prefs.write().content("KEY", "VALUE")
-			 .content("KEY", "VALUE")
-			 .commit() or .apply()
+	     .content("KEY", "VALUE")
+	     .commit() or .apply()
 ```
 
 ```kotlin
 Prefs.write(fileName)
-		     .content("KEY", "VALUE")
-			 .content("KEY", "VALUE")
-			 .commit() or .apply()
+       	     .content("KEY", "VALUE")
+	     .content("KEY", "VALUE")
+	     .commit() or .apply()
 ```
 
 ```kotlin
 Prefs.write(context)
-			 .content("KEY", "VALUE")
-			 .content("KEY", "VALUE")
-			 .commit() or .apply()
+       	     .content("KEY", "VALUE")
+       	     .content("KEY", "VALUE")
+       	     .commit() or .apply()
 ```
 
 ```kotlin
 Prefs.write(context, fileName)
-			 .content("KEY", "VALUE")
-			 .content("KEY", "VALUE")
-			 .commit() or .apply()
+       	     .content("KEY", "VALUE")
+       	     .content("KEY", "VALUE")
+       	     .commit() or .apply()
 ```
 
 #### Read Operation
@@ -85,9 +85,9 @@ Prefs.read(context, fileName).content("KEY", "")
 
 ```kotlin
 Prefs.securely().write()
-			 .content("KEY", "VALUE")
-			 .content("KEY", "VALUE")
-			 .commit() or .apply()
+       	     .content("KEY", "VALUE")
+       	     .content("KEY", "VALUE")
+       	     .commit() or .apply()
 
 Prefs.securely().read().content("KEY",  "")
 ```
@@ -100,7 +100,7 @@ Prefs.has(fileName).key("KEY");
 Prefs.has(context).key("KEY");
 Prefs.has(context, fileName).key("KEY");
 ```
-- Give boolean value if key exists then true elase false.
+- Give boolean value if key exists then true else false.
 
 #### Remove Operation
 
