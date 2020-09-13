@@ -27,7 +27,7 @@ dependencies {
 
 ## Examples
 
-Refer [This](app/src/androidTest/java/com/sample/easyprefs/suite) Sample Test Suite in the suite package
+Refer [This](app/src/androidTest/java/com/sample/easyprefs/kotlin/suite) Sample Test Suite in the suite package
 For, the more information refer this test case code [here](app/src/androidTest/java/com/sample/easyprefs)
 
 #### Initialize App
