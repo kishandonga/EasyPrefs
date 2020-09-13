@@ -25,7 +25,7 @@ class ReadImpl(
     }
 
     private fun decrypt(key: String, defaultValue: String): String {
-        var value = pref.getString(Crypt.encrypt(key, key), null) ?: defaultValue
+        var value = pref.getString(Crypt.encryptKey(key), null) ?: defaultValue
         if (value != defaultValue) {
             value = Crypt.decrypt(key, value)
         }

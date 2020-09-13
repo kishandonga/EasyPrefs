@@ -7,8 +7,10 @@ import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,6 +18,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsClearFileTest {
 
     @Before
@@ -24,7 +27,7 @@ class PrefsClearFileTest {
     }
 
     @Test
-    fun testClearCommitOp() {
+    fun test1_ClearCommitOp() {
         assertTrue(Prefs.clear(Const.PREF_SAMPLE_FILE_2).all().commit())
 
         val data = Prefs.read(Const.PREF_SAMPLE_FILE_2).content(Const.SAMPLE_STRING_KEY, "")
@@ -32,7 +35,7 @@ class PrefsClearFileTest {
     }
 
     @Test
-    fun testClearApplyOp() {
+    fun test2_ClearApplyOp() {
         Prefs.clear(Const.PREF_SAMPLE_FILE_2).all().apply()
 
         val data = Prefs.read(Const.PREF_SAMPLE_FILE_2).content(Const.SAMPLE_STRING_KEY_APPLY, "")

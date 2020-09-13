@@ -11,4 +11,12 @@ object Crypt : CryptProvider {
     override fun decrypt(key: String, value: String): String {
         return AesCrypt.decrypt(key, value)
     }
+
+    override fun getKey(key: String): String {
+        return key + AesCrypt.getKey()
+    }
+
+    override fun encryptKey(key: String): String {
+        return AesCrypt.encrypt(getKey(key), key)
+    }
 }

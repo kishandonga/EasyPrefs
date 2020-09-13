@@ -7,8 +7,10 @@ import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,6 +18,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsTest {
 
     private val p1 = "Hello..."
@@ -32,7 +35,7 @@ class PrefsTest {
     }
 
     @Test
-    fun testCommitOp() {
+    fun test1_CommitOp() {
         assertTrue(
             Prefs.write()
                 .content(Const.SAMPLE_STRING_KEY, p1)
@@ -47,7 +50,7 @@ class PrefsTest {
     }
 
     @Test
-    fun testReadCommitOp() {
+    fun test2_ReadCommitOp() {
 
         val o1 = Prefs.read().content(Const.SAMPLE_STRING_KEY, "")
         assertEquals(p1, o1)
@@ -72,7 +75,7 @@ class PrefsTest {
     }
 
     @Test
-    fun testApplyOp() {
+    fun test3_ApplyOp() {
         Prefs.write()
             .content(Const.SAMPLE_STRING_KEY_APPLY, p1)
             .content(Const.SAMPLE_INT_KEY_APPLY, p2)

@@ -7,8 +7,10 @@ import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,6 +18,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsFileTest {
 
     private val p1 = "Hello..."
@@ -32,7 +35,7 @@ class PrefsFileTest {
     }
 
     @Test
-    fun testCommitOp() {
+    fun test1_CommitOp() {
         assertTrue(
             Prefs.write(Const.PREF_SAMPLE_FILE)
                 .content(Const.SAMPLE_STRING_KEY, p1)
@@ -47,7 +50,7 @@ class PrefsFileTest {
     }
 
     @Test
-    fun testReadCommitOp() {
+    fun test2_ReadCommitOp() {
 
         val o1 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_STRING_KEY, "")
         assertEquals(p1, o1)
@@ -61,7 +64,10 @@ class PrefsFileTest {
         val o4 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_LONG_KEY, Long.MIN_VALUE)
         assertEquals(p4, o4)
 
-        val o5 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_DOUBLE_KEY, Double.MIN_VALUE)
+        val o5 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_DOUBLE_KEY,
+            Double.MIN_VALUE
+        )
         assertEquals(p5.toString(), o5.toString())
 
         val o6 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_BOOLEAN_KEY, true)
@@ -72,7 +78,7 @@ class PrefsFileTest {
     }
 
     @Test
-    fun testApplyOp() {
+    fun test3_ApplyOp() {
         Prefs.write(Const.PREF_SAMPLE_FILE)
             .content(Const.SAMPLE_STRING_KEY_APPLY, p1)
             .content(Const.SAMPLE_INT_KEY_APPLY, p2)
@@ -85,27 +91,42 @@ class PrefsFileTest {
     }
 
     @Test
-    fun testReadApplyOp() {
+    fun test4_ReadApplyOp() {
 
         val o1 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_STRING_KEY_APPLY, "")
         assertEquals(p1, o1)
 
-        val o2 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_INT_KEY_APPLY, Int.MIN_VALUE)
+        val o2 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_INT_KEY_APPLY,
+            Int.MIN_VALUE
+        )
         assertEquals(p2, o2)
 
-        val o3 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_FLOAT_KEY_APPLY, Float.MIN_VALUE)
+        val o3 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_FLOAT_KEY_APPLY,
+            Float.MIN_VALUE
+        )
         assertEquals(p3, o3)
 
-        val o4 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_LONG_KEY_APPLY, Long.MIN_VALUE)
+        val o4 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_LONG_KEY_APPLY,
+            Long.MIN_VALUE
+        )
         assertEquals(p4, o4)
 
-        val o5 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_DOUBLE_KEY_APPLY, Double.MIN_VALUE)
+        val o5 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_DOUBLE_KEY_APPLY,
+            Double.MIN_VALUE
+        )
         assertEquals(p5.toString(), o5.toString())
 
         val o6 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_BOOLEAN_KEY_APPLY, true)
         assertEquals(p6, o6)
 
-        val o7 = Prefs.read(Const.PREF_SAMPLE_FILE).content(Const.SAMPLE_STRING_SET_KEY_APPLY, setOf())
+        val o7 = Prefs.read(Const.PREF_SAMPLE_FILE).content(
+            Const.SAMPLE_STRING_SET_KEY_APPLY,
+            setOf()
+        )
         assertEquals(p7, o7)
     }
 }

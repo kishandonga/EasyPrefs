@@ -7,8 +7,10 @@ import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,6 +18,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsHasContextFileTest {
 
     private lateinit var context: Context
@@ -27,7 +30,7 @@ class PrefsHasContextFileTest {
     }
 
     @Test
-    fun testHasOp() {
+    fun test1_HasOp() {
         assertTrue(Prefs.has(context, Const.PREF_SAMPLE_FILE).key(Const.SAMPLE_STRING_KEY))
     }
 }

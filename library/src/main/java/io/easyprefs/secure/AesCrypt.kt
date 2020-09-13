@@ -42,6 +42,26 @@ object AesCrypt {
         0x00
     )
 
+    private val aes_key = byteArrayOf(
+        109,
+        97,
+        115,
+        116,
+        101,
+        114,
+        95,
+        112,
+        114,
+        101,
+        102,
+        95,
+        107,
+        101,
+        121
+    )
+
+    fun getKey(): String = String(aes_key)
+
     /**
      * Generates SHA256 hash of the password which is used as key
      *

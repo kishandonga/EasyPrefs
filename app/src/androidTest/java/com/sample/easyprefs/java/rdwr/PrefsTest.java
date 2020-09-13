@@ -6,8 +6,10 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.sample.easyprefs.java.Const;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +25,7 @@ import static org.junit.Assert.assertTrue;
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PrefsTest {
 
     private String p1 = "Hello...";
@@ -43,7 +46,7 @@ public class PrefsTest {
     }
 
     @Test
-    public void testCommitOp() {
+    public void test1_CommitOp() {
         assertTrue(Prefs.write()
                 .content(Const.SAMPLE_STRING_KEY, p1)
                 .content(Const.SAMPLE_INT_KEY, p2)
@@ -57,7 +60,7 @@ public class PrefsTest {
     }
 
     @Test
-    public void testReadCommitOp() {
+    public void test2_ReadCommitOp() {
 
         String o1 = Prefs.read().content(Const.SAMPLE_STRING_KEY, "");
         assertEquals(p1, o1);
@@ -82,7 +85,7 @@ public class PrefsTest {
     }
 
     @Test
-    public void testApplyOp() {
+    public void test3_ApplyOp() {
         Prefs.write()
                 .content(Const.SAMPLE_STRING_KEY_APPLY, p1)
                 .content(Const.SAMPLE_INT_KEY_APPLY, p2)
@@ -95,7 +98,7 @@ public class PrefsTest {
     }
 
     @Test
-    public void testReadApplyOp() {
+    public void test4_ReadApplyOp() {
 
         String o1 = Prefs.read().content(Const.SAMPLE_STRING_KEY_APPLY, "");
         assertEquals(p1, o1);
