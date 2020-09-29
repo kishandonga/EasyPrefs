@@ -1,6 +1,6 @@
 # Android EasyPrefs
 
-[![](https://jitpack.io/v/kishandonga/EasyPrefs.svg)](https://jitpack.io/#kishandonga/EasyPrefs)
+[![](https://jitpack.io/v/kishandonga/EasyPrefs.svg)](https://jitpack.io/#kishandonga/EasyPrefs)&nbsp;&nbsp;![](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)
 
 EasyPrefs is library for the android SharedPreferences or we can say it wrapper on it. It is provided easy access to the SharedPreferences API, also it will need only one-time initialization and used in the whole project without context also facility to provide context if necessary with support encryption and decryption.
 
