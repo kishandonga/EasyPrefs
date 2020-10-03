@@ -16,8 +16,12 @@ Default file name is **`prefs_<package_name>`** and custom file name like **`pre
 Gradle:
 
 ```groovy
-repositories {
-    maven { url 'https://jitpack.io' }
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 dependencies {
