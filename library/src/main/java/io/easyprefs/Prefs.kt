@@ -149,11 +149,11 @@ object Prefs {
 
     @JvmStatic
     fun has(context: Context): Has {
-        return EasyPrefImpl.has(context)
+        return EasyPrefImpl.has(context, Encryption.NONE)
     }
 
     @JvmStatic
     fun has(context: Context, fileName: String): Has {
-        return EasyPrefImpl.hasOn(context, fileName)
+        return EasyPrefImpl.hasOn(context, fileName, Encryption.NONE)
     }
 }

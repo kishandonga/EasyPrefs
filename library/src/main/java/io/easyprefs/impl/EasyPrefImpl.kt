@@ -85,23 +85,23 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun has(context: Context): Has {
+    override fun has(context: Context, encType: Encryption): Has {
         return HasImpl(
             PrefProvider.getPref(
                 context,
                 getFileName(context),
-                Encryption.NONE
-            )
+                encType
+            ), encType
         )
     }
 
-    override fun hasOn(context: Context, fileName: String): Has {
+    override fun hasOn(context: Context, fileName: String, encType: Encryption): Has {
         return HasImpl(
             PrefProvider.getPref(
                 context,
                 getFileNameOn(fileName),
-                Encryption.NONE
-            )
+                encType
+            ), encType
         )
     }
 
