@@ -148,7 +148,7 @@ Contributions are welcome! If you find a bug please report it and if you want ad
 
 ### About me
 
-I'm Kishan Donga and you can connect with me via twitter [@ikishan92](https://twitter.com/ikishan92) and instagram [@ikishan92](https://www.instagram.com/ikishan92/), I am a mobility developer and I love to do some innovation.
+I'm Kishan Donga and you can connect with me via LinkedIn [@ikd96](https://www.linkedin.com/in/ikd96/) twitter [@ikishan96](https://twitter.com/ikishan96) and instagram [@ikishan96](https://www.instagram.com/ikishan96/), I am a mobility developer and I love to do some innovation.
 
 ### License
 
