@@ -1,9 +1,11 @@
 package io.easyprefs.impl
 
 import android.content.Context
+import io.easyprefs.contract.Has
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Secure
 import io.easyprefs.contract.Write
+import io.easyprefs.error.PrefsHasContextException
 import io.easyprefs.error.PrefsReadContextException
 import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.typedef.Encryption
@@ -54,5 +56,27 @@ object SecureImpl : Secure {
 
     override fun read(context: Context, fileName: String): Read {
         return EasyPrefImpl.readOn(context, fileName, Encryption.APPLY)
+    }
+
+    override fun has(): Has {
+        if (context != null) {
+            return has(context!!)
+        }
+        throw PrefsHasContextException()
+    }
+
+    override fun has(fileName: String): Has {
+        if (context != null) {
+            return has(context!!, fileName)
+        }
+        throw PrefsHasContextException()
+    }
+
+    override fun has(context: Context): Has {
+        return EasyPrefImpl.has(context, Encryption.APPLY)
+    }
+
+    override fun has(context: Context, fileName: String): Has {
+        return EasyPrefImpl.hasOn(context, fileName, Encryption.APPLY)
     }
 }

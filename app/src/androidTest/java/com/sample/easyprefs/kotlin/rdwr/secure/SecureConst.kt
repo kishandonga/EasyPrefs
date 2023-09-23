@@ -1,6 +1,6 @@
-package com.sample.easyprefs.kotlin.secure
+package com.sample.easyprefs.kotlin.rdwr.secure
 
-object Const {
+object SecureConst {
     const val PREF_SAMPLE_FILE = "secure_sample_file_name"
     const val PREF_SAMPLE_FILE_2 = "secure_sample_file_name_two"
 
