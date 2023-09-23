@@ -1,7 +1,12 @@
 package io.easyprefs.impl
 
 import android.content.Context
-import io.easyprefs.contract.*
+import io.easyprefs.contract.Clear
+import io.easyprefs.contract.EasyPref
+import io.easyprefs.contract.Has
+import io.easyprefs.contract.Read
+import io.easyprefs.contract.Remove
+import io.easyprefs.contract.Write
 import io.easyprefs.typedef.Encryption
 
 object EasyPrefImpl : EasyPref {
@@ -37,7 +42,7 @@ object EasyPrefImpl : EasyPref {
         encType: Encryption
     ): Read {
         return ReadImpl(
-            PrefProvider.getPref(context, getFileName(context), encType),
+            PrefProvider.getPref(context, getFileNameOn(fileName), encType),
             encType
         )
     }

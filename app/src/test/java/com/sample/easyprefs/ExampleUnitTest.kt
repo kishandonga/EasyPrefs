@@ -1,7 +1,5 @@
 package com.sample.easyprefs
 
-import io.easyprefs.Prefs
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
