@@ -2,7 +2,6 @@ package com.sample.easyprefs.kotlin.secure
 
 object SecureConst {
     const val SECURE_PREF_FILE = "secure_file_name"
-    //const val SECURE_PREF_FILE_2 = "secure_file_name_two"
 
     const val SECURE_STRING_KEY = "secure_string_key"
     const val SECURE_STRING_KEY_APPLY = "secure_string_key_apply"

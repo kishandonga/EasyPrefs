@@ -7,6 +7,7 @@ import io.easyprefs.contract.Read
 import io.easyprefs.contract.Remove
 import io.easyprefs.contract.Secure
 import io.easyprefs.contract.Write
+import io.easyprefs.enums.Encryption
 import io.easyprefs.error.PrefsClearContextException
 import io.easyprefs.error.PrefsHasContextException
 import io.easyprefs.error.PrefsReadContextException
@@ -15,7 +16,6 @@ import io.easyprefs.error.PrefsSecurelyContextException
 import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.impl.EasyPrefImpl
 import io.easyprefs.impl.SecureImpl
-import io.easyprefs.typedef.Encryption
 import java.lang.ref.WeakReference
 
 object Prefs {

@@ -30,7 +30,7 @@ class PrefsHasFileTest {
     @Test
     fun test1_hasOp() {
 
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         assertTrue(
             Prefs.write(Const.PREF_FILE)

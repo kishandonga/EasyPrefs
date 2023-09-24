@@ -37,7 +37,7 @@ class PrefsTest {
     @Test
     fun test1_commitOp() {
 
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         assertTrue(
             Prefs.write()
@@ -75,7 +75,7 @@ class PrefsTest {
 
     @Test
     fun test2_applyOp() {
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         Prefs.write()
             .content(Const.STRING_KEY_APPLY, p1)

@@ -40,10 +40,10 @@ class PrefsContextFileTest {
     @Test
     fun test1_commitOp() {
 
-        assertTrue(Prefs.clear(context).commit())
+        assertTrue(Prefs.clear(context).all().commit())
 
         assertTrue(
-            Prefs.write(context, Const.PREF_FILE_2)
+            Prefs.write(context, Const.PREF_FILE)
                 .content(Const.STRING_KEY, p1)
                 .content(Const.INT_KEY, p2)
                 .content(Const.FLOAT_KEY, p3)
@@ -54,34 +54,34 @@ class PrefsContextFileTest {
                 .commit()
         )
 
-        val o1 = Prefs.read(context, Const.PREF_FILE_2).content(Const.STRING_KEY, "")
+        val o1 = Prefs.read(context, Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals(p1, o1)
 
-        val o2 = Prefs.read(context, Const.PREF_FILE_2).content(Const.INT_KEY, Int.MIN_VALUE)
+        val o2 = Prefs.read(context, Const.PREF_FILE).content(Const.INT_KEY, Int.MIN_VALUE)
         assertEquals(p2, o2)
 
-        val o3 = Prefs.read(context, Const.PREF_FILE_2).content(Const.FLOAT_KEY, Float.MIN_VALUE)
+        val o3 = Prefs.read(context, Const.PREF_FILE).content(Const.FLOAT_KEY, Float.MIN_VALUE)
         assertEquals(p3, o3)
 
-        val o4 = Prefs.read(context, Const.PREF_FILE_2).content(Const.LONG_KEY, Long.MIN_VALUE)
+        val o4 = Prefs.read(context, Const.PREF_FILE).content(Const.LONG_KEY, Long.MIN_VALUE)
         assertEquals(p4, o4)
 
-        val o5 = Prefs.read(context, Const.PREF_FILE_2).content(Const.DOUBLE_KEY, Double.MIN_VALUE)
+        val o5 = Prefs.read(context, Const.PREF_FILE).content(Const.DOUBLE_KEY, Double.MIN_VALUE)
         assertEquals(p5.toString(), o5.toString())
 
-        val o6 = Prefs.read(context, Const.PREF_FILE_2).content(Const.BOOLEAN_KEY, true)
+        val o6 = Prefs.read(context, Const.PREF_FILE).content(Const.BOOLEAN_KEY, true)
         assertEquals(p6, o6)
 
-        val o7 = Prefs.read(context, Const.PREF_FILE_2).content(Const.SET_KEY, setOf())
+        val o7 = Prefs.read(context, Const.PREF_FILE).content(Const.SET_KEY, setOf())
         assertEquals(p7, o7)
     }
 
     @Test
     fun test2_applyOp() {
 
-        assertTrue(Prefs.clear(context).commit())
+        assertTrue(Prefs.clear(context).all().commit())
 
-        Prefs.write(context, Const.PREF_FILE_2)
+        Prefs.write(context, Const.PREF_FILE)
             .content(Const.STRING_KEY_APPLY, p1)
             .content(Const.INT_KEY_APPLY, p2)
             .content(Const.FLOAT_KEY_APPLY, p3)
@@ -93,36 +93,36 @@ class PrefsContextFileTest {
 
         val o1 = Prefs.read(
             context,
-            Const.PREF_FILE_2
+            Const.PREF_FILE
         ).content(Const.STRING_KEY_APPLY, "")
         assertEquals(p1, o1)
 
-        val o2 = Prefs.read(context, Const.PREF_FILE_2).content(Const.INT_KEY_APPLY, Int.MIN_VALUE)
+        val o2 = Prefs.read(context, Const.PREF_FILE).content(Const.INT_KEY_APPLY, Int.MIN_VALUE)
         assertEquals(p2, o2)
 
         val o3 =
-            Prefs.read(context, Const.PREF_FILE_2).content(Const.FLOAT_KEY_APPLY, Float.MIN_VALUE)
+            Prefs.read(context, Const.PREF_FILE).content(Const.FLOAT_KEY_APPLY, Float.MIN_VALUE)
         assertEquals(p3, o3)
 
         val o4 =
-            Prefs.read(context, Const.PREF_FILE_2).content(Const.LONG_KEY_APPLY, Long.MIN_VALUE)
+            Prefs.read(context, Const.PREF_FILE).content(Const.LONG_KEY_APPLY, Long.MIN_VALUE)
         assertEquals(p4, o4)
 
         val o5 = Prefs.read(
             context,
-            Const.PREF_FILE_2
+            Const.PREF_FILE
         ).content(Const.DOUBLE_KEY_APPLY, Double.MIN_VALUE)
         assertEquals(p5.toString(), o5.toString())
 
         val o6 = Prefs.read(
             context,
-            Const.PREF_FILE_2
+            Const.PREF_FILE
         ).content(Const.BOOLEAN_KEY_APPLY, true)
         assertEquals(p6, o6)
 
         val o7 = Prefs.read(
             context,
-            Const.PREF_FILE_2
+            Const.PREF_FILE
         ).content(Const.SET_KEY_APPLY, setOf())
         assertEquals(p7, o7)
     }

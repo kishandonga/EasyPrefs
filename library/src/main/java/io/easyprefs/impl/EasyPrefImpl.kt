@@ -7,7 +7,7 @@ import io.easyprefs.contract.Has
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Remove
 import io.easyprefs.contract.Write
-import io.easyprefs.typedef.Encryption
+import io.easyprefs.enums.Encryption
 
 object EasyPrefImpl : EasyPref {
 

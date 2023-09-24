@@ -27,18 +27,18 @@ class PrefsClearFileTest {
     }
 
     @Test
-    fun test1_ClearCommitOp() {
-        assertTrue(Prefs.clear(Const.PREF_FILE_2).all().commit())
+    fun test1_commitOp() {
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
-        val data = Prefs.read(Const.PREF_FILE_2).content(Const.STRING_KEY, "")
+        val data = Prefs.read(Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals("", data)
     }
 
     @Test
-    fun test2_ClearApplyOp() {
-        Prefs.clear(Const.PREF_FILE_2).all().apply()
+    fun test2_applyOp() {
+        Prefs.clear(Const.PREF_FILE).all().apply()
 
-        val data = Prefs.read(Const.PREF_FILE_2).content(Const.STRING_KEY_APPLY, "")
+        val data = Prefs.read(Const.PREF_FILE).content(Const.STRING_KEY_APPLY, "")
         assertEquals("", data)
     }
 }

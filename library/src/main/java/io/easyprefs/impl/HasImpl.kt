@@ -3,8 +3,8 @@ package io.easyprefs.impl
 import android.content.SharedPreferences
 import android.os.Build
 import io.easyprefs.contract.Has
+import io.easyprefs.enums.Encryption
 import io.easyprefs.secure.Crypt
-import io.easyprefs.typedef.Encryption
 
 class HasImpl(
     private val pref: SharedPreferences,

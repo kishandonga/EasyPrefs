@@ -23,15 +23,23 @@ import org.junit.runners.MethodSorters
 class PrefsRemoveContextTest {
 
     private lateinit var context: Context
+    private val p1 = "Hello..."
 
     @Before
     fun initApp() {
-        //Prefs.initializeApp()
         context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 
     @Test
-    fun test1_ClearCommitOp() {
+    fun test1_commitOp() {
+        assertTrue(Prefs.clear(context).all().commit())
+
+        assertTrue(
+            Prefs.write(context)
+                .content(Const.STRING_KEY, p1)
+                .commit()
+        )
+
         assertTrue(Prefs.remove(context).key(Const.STRING_KEY).commit())
 
         val data = Prefs.read(context).content(Const.STRING_KEY, "")
@@ -39,7 +47,15 @@ class PrefsRemoveContextTest {
     }
 
     @Test
-    fun test2_ClearApplyOp() {
+    fun test2_applyOp() {
+        assertTrue(Prefs.clear(context).all().commit())
+
+        assertTrue(
+            Prefs.write(context)
+                .content(Const.STRING_KEY_APPLY, p1)
+                .commit()
+        )
+
         Prefs.remove(context).key(Const.STRING_KEY_APPLY).apply()
 
         val data = Prefs.read(context).content(Const.STRING_KEY_APPLY, "")

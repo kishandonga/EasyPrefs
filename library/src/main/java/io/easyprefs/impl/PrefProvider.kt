@@ -2,8 +2,8 @@ package io.easyprefs.impl
 
 import android.content.Context
 import android.content.SharedPreferences
+import io.easyprefs.enums.Encryption
 import io.easyprefs.secure.EncryptedPref
-import io.easyprefs.typedef.Encryption
 
 object PrefProvider {
 

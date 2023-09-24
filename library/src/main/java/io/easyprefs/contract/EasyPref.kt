@@ -1,7 +1,7 @@
 package io.easyprefs.contract
 
 import android.content.Context
-import io.easyprefs.typedef.Encryption
+import io.easyprefs.enums.Encryption
 
 interface EasyPref {
     fun write(context: Context, encType: Encryption): Write

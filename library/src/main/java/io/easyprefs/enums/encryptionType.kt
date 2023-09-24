@@ -1,4 +1,4 @@
-package io.easyprefs.typedef
+package io.easyprefs.enums
 
 enum class Encryption { NONE, APPLY }
 

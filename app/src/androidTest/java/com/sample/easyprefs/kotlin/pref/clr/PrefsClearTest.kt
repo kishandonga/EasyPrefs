@@ -27,7 +27,7 @@ class PrefsClearTest {
     }
 
     @Test
-    fun test1_ClearCommitOp() {
+    fun test1_commitOp() {
         assertTrue(Prefs.clear().all().commit())
 
         val data = Prefs.read().content(Const.STRING_KEY, "")
@@ -35,7 +35,7 @@ class PrefsClearTest {
     }
 
     @Test
-    fun test2_ClearApplyOp() {
+    fun test2_applyOp() {
         Prefs.clear().all().apply()
 
         val data = Prefs.read().content(Const.STRING_KEY_APPLY, "")

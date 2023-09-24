@@ -26,12 +26,11 @@ class PrefsClearContextFileTest {
 
     @Before
     fun initApp() {
-        //Prefs.initializeApp()
         context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 
     @Test
-    fun test1_ClearCommitOp() {
+    fun test1_commitOp() {
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
 
         val data = Prefs.read(context, Const.PREF_FILE).content(Const.STRING_KEY, "")
@@ -39,7 +38,7 @@ class PrefsClearContextFileTest {
     }
 
     @Test
-    fun test2_ClearApplyOp() {
+    fun test2_applyOp() {
         Prefs.clear(context, Const.PREF_FILE).all().apply()
 
         val data = Prefs.read(

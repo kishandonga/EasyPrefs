@@ -30,7 +30,7 @@ class PrefsHasTest {
     @Test
     fun test1_hasOp() {
 
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         assertTrue(
             Prefs.write()

@@ -2,7 +2,6 @@ package com.sample.easyprefs.kotlin.pref
 
 object Const {
     const val PREF_FILE = "file_name"
-    const val PREF_FILE_2 = "file_name_two"
 
     const val STRING_KEY = "string_key"
     const val STRING_KEY_APPLY = "string_key_apply"

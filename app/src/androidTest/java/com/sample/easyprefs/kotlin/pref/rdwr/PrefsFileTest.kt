@@ -37,7 +37,7 @@ class PrefsFileTest {
     @Test
     fun test1_commitOp() {
 
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         assertTrue(
             Prefs.write(Const.PREF_FILE)
@@ -79,7 +79,7 @@ class PrefsFileTest {
     @Test
     fun test2_applyOp() {
 
-        assertTrue(Prefs.clear().commit())
+        assertTrue(Prefs.clear().all().commit())
 
         Prefs.write(Const.PREF_FILE)
             .content(Const.STRING_KEY_APPLY, p1)

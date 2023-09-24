@@ -21,24 +21,42 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsRemoveFileTest {
 
+    private val p1 = "Hello..."
+
     @Before
     fun initApp() {
         Prefs.initializeApp(InstrumentationRegistry.getInstrumentation().targetContext)
     }
 
     @Test
-    fun test1_ClearCommitOp() {
-        assertTrue(Prefs.remove(Const.PREF_FILE_2).key(Const.STRING_KEY).commit())
+    fun test1_commitOp() {
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
-        val data = Prefs.read(Const.PREF_FILE_2).content(Const.STRING_KEY, "")
+        assertTrue(
+            Prefs.write(Const.PREF_FILE)
+                .content(Const.STRING_KEY, p1)
+                .commit()
+        )
+
+        assertTrue(Prefs.remove(Const.PREF_FILE).key(Const.STRING_KEY).commit())
+
+        val data = Prefs.read(Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals("", data)
     }
 
     @Test
-    fun test2_ClearApplyOp() {
-        Prefs.remove(Const.PREF_FILE_2).key(Const.STRING_KEY_APPLY).apply()
+    fun test2_applyOp() {
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
-        val data = Prefs.read(Const.PREF_FILE_2).content(Const.STRING_KEY_APPLY, "")
+        assertTrue(
+            Prefs.write(Const.PREF_FILE)
+                .content(Const.STRING_KEY_APPLY, p1)
+                .commit()
+        )
+
+        Prefs.remove(Const.PREF_FILE).key(Const.STRING_KEY_APPLY).apply()
+
+        val data = Prefs.read(Const.PREF_FILE).content(Const.STRING_KEY_APPLY, "")
         assertEquals("", data)
     }
 }

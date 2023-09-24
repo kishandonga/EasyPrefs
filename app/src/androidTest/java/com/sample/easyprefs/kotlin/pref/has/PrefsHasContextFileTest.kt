@@ -32,7 +32,7 @@ class PrefsHasContextFileTest {
     @Test
     fun test1_hasOp() {
 
-        assertTrue(Prefs.clear(context).commit())
+        assertTrue(Prefs.clear(context).all().commit())
 
         assertTrue(
             Prefs.write(context, Const.PREF_FILE)

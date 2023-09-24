@@ -21,13 +21,23 @@ import org.junit.runners.MethodSorters
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PrefsRemoveTest {
 
+    private val p1 = "Hello..."
+
     @Before
     fun initApp() {
         Prefs.initializeApp(InstrumentationRegistry.getInstrumentation().targetContext)
     }
 
     @Test
-    fun test1_ClearCommitOp() {
+    fun test1_commitOp() {
+        assertTrue(Prefs.clear().all().commit())
+
+        assertTrue(
+            Prefs.write()
+                .content(Const.STRING_KEY, p1)
+                .commit()
+        )
+
         assertTrue(Prefs.remove().key(Const.STRING_KEY).commit())
 
         val data = Prefs.read().content(Const.STRING_KEY, "")
@@ -35,7 +45,15 @@ class PrefsRemoveTest {
     }
 
     @Test
-    fun test2_ClearApplyOp() {
+    fun test2_applyOp() {
+        assertTrue(Prefs.clear().all().commit())
+
+        assertTrue(
+            Prefs.write()
+                .content(Const.STRING_KEY_APPLY, p1)
+                .commit()
+        )
+
         Prefs.remove().key(Const.STRING_KEY_APPLY).apply()
 
         val data = Prefs.read().content(Const.STRING_KEY_APPLY, "")

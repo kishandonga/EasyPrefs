@@ -3,8 +3,8 @@ package io.easyprefs.impl
 import android.content.SharedPreferences
 import android.os.Build
 import io.easyprefs.contract.Read
+import io.easyprefs.enums.Encryption
 import io.easyprefs.secure.Crypt
-import io.easyprefs.typedef.Encryption
 import org.json.JSONArray
 
 class ReadImpl(
