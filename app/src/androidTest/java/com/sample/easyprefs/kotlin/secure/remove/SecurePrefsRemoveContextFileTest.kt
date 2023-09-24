@@ -1,4 +1,4 @@
-package com.sample.easyprefs.kotlin.pref.remove
+package com.sample.easyprefs.kotlin.secure.remove
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -20,7 +20,7 @@ import org.junit.runners.MethodSorters
  */
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class PrefsRemoveContextFileTest {
+class SecurePrefsRemoveContextFileTest {
 
     private lateinit var context: Context
     private val p1 = "Hello..."
@@ -36,16 +36,16 @@ class PrefsRemoveContextFileTest {
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
 
         assertTrue(
-            Prefs.write(context, Const.PREF_FILE)
+            Prefs.securely().write(context, Const.PREF_FILE)
                 .content(Const.STRING_KEY, p1)
                 .commit()
         )
 
         assertTrue(
-            Prefs.remove(context, Const.PREF_FILE).key(Const.STRING_KEY).commit()
+            Prefs.securely().remove(context, Const.PREF_FILE).key(Const.STRING_KEY).commit()
         )
 
-        val data = Prefs.read(context, Const.PREF_FILE).content(Const.STRING_KEY, "")
+        val data = Prefs.securely().read(context, Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals("", data)
     }
 
@@ -55,14 +55,14 @@ class PrefsRemoveContextFileTest {
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
 
         assertTrue(
-            Prefs.write(context, Const.PREF_FILE)
+            Prefs.securely().write(context, Const.PREF_FILE)
                 .content(Const.STRING_KEY, p1)
                 .commit()
         )
 
-        Prefs.remove(context, Const.PREF_FILE).key(Const.STRING_KEY_APPLY).apply()
+        Prefs.securely().remove(context, Const.PREF_FILE).key(Const.STRING_KEY_APPLY).apply()
 
-        val data = Prefs.read(
+        val data = Prefs.securely().read(
             context,
             Const.PREF_FILE
         ).content(Const.STRING_KEY_APPLY, "")

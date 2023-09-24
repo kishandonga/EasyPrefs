@@ -2,7 +2,7 @@ package com.sample.easyprefs.kotlin.pref.rdwr
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sample.easyprefs.kotlin.pref.Const
+import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

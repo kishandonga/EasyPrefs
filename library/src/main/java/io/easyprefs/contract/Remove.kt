@@ -1,7 +1,5 @@
 package io.easyprefs.contract
 
-import io.easyprefs.contract.provider.AtomicProvider
-
-interface Remove : AtomicProvider {
+interface Remove : Atomic {
     fun key(key: String): Remove
 }

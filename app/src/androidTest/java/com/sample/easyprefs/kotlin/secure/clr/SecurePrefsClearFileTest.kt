@@ -1,10 +1,10 @@
-package com.sample.easyprefs.kotlin.pref.has
+package com.sample.easyprefs.kotlin.secure.clr
 
-import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -19,27 +19,26 @@ import org.junit.runners.MethodSorters
  */
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class PrefsHasContextTest {
-
-    private lateinit var context: Context
-    private val p1 = "Hello..."
+class SecurePrefsClearFileTest {
 
     @Before
     fun initApp() {
-        context = InstrumentationRegistry.getInstrumentation().targetContext
+        Prefs.initializeApp(InstrumentationRegistry.getInstrumentation().targetContext)
     }
 
     @Test
-    fun test1_hasOp() {
+    fun test1_commitOp() {
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
-        assertTrue(Prefs.clear(context).all().commit())
+        val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY, "")
+        assertEquals("", data)
+    }
 
-        assertTrue(
-            Prefs.write(context)
-                .content(Const.STRING_KEY, p1)
-                .commit()
-        )
+    @Test
+    fun test2_applyOp() {
+        Prefs.clear(Const.PREF_FILE).all().apply()
 
-        assertTrue(Prefs.has(context).key(Const.STRING_KEY))
+        val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY_APPLY, "")
+        assertEquals("", data)
     }
 }

@@ -5,7 +5,7 @@ import io.easyprefs.contract.Clear
 import io.easyprefs.contract.Has
 import io.easyprefs.contract.Read
 import io.easyprefs.contract.Remove
-import io.easyprefs.contract.Secure
+import io.easyprefs.contract.SecurePref
 import io.easyprefs.contract.Write
 import io.easyprefs.enums.Encryption
 import io.easyprefs.error.PrefsClearContextException
@@ -15,7 +15,7 @@ import io.easyprefs.error.PrefsRemoveContextException
 import io.easyprefs.error.PrefsSecurelyContextException
 import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.impl.EasyPrefImpl
-import io.easyprefs.impl.SecureImpl
+import io.easyprefs.impl.SecurePrefImpl
 import java.lang.ref.WeakReference
 
 object Prefs {
@@ -27,19 +27,19 @@ object Prefs {
         this.contextWeakReference = WeakReference(context.applicationContext)
     }
 
-    //TODO: only for the API Level 23 Android M+ @RequiresApi(Build.VERSION_CODES.M)
     @JvmStatic
-    fun securely(): Secure {
-        val secure = SecureImpl
+    fun securely(): SecurePref {
+        val secure = SecurePrefImpl
         if (isContextValid()) {
-            secure.contextWeakReference = WeakReference(contextWeakReference.get())
+            secure.contextWeakReference = contextWeakReference
+            return secure
         }
         throw PrefsSecurelyContextException()
     }
 
     @JvmStatic
-    fun securely(context: Context): Secure {
-        val secure = SecureImpl
+    fun securely(context: Context): SecurePref {
+        val secure = SecurePrefImpl
         secure.contextWeakReference = WeakReference(context)
         return secure
     }
@@ -140,12 +140,12 @@ object Prefs {
 
     @JvmStatic
     fun remove(context: Context): Remove {
-        return EasyPrefImpl.remove(context)
+        return EasyPrefImpl.remove(context, Encryption.NONE)
     }
 
     @JvmStatic
     fun remove(context: Context, fileName: String): Remove {
-        return EasyPrefImpl.removeOn(context, fileName)
+        return EasyPrefImpl.removeOn(context, fileName, Encryption.NONE)
     }
 
     @JvmStatic

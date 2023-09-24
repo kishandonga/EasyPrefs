@@ -3,7 +3,7 @@ package com.sample.easyprefs.kotlin.pref.has
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sample.easyprefs.kotlin.pref.Const
+import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -32,7 +32,7 @@ class PrefsHasContextFileTest {
     @Test
     fun test1_hasOp() {
 
-        assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
 
         assertTrue(
             Prefs.write(context, Const.PREF_FILE)

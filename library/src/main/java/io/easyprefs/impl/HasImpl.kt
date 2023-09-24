@@ -12,14 +12,18 @@ class HasImpl(
 ) : Has {
 
     override fun key(key: String): Boolean {
-        return if(encType == Encryption.NONE){
+        return if (encType == Encryption.NONE) {
             pref.all.keys.contains(key)
-        }else{
+        } else {
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 pref.all.keys.contains(key)
             } else {
                 pref.all.keys.contains(Crypt.encryptKey(key))
             }
         }
+    }
+
+    override fun empty(): Boolean {
+        return pref.all.isEmpty()
     }
 }

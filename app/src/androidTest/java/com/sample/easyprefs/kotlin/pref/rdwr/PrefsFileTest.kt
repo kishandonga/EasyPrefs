@@ -2,7 +2,7 @@ package com.sample.easyprefs.kotlin.pref.rdwr
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sample.easyprefs.kotlin.pref.Const
+import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -37,7 +37,7 @@ class PrefsFileTest {
     @Test
     fun test1_commitOp() {
 
-        assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
         assertTrue(
             Prefs.write(Const.PREF_FILE)
@@ -79,7 +79,7 @@ class PrefsFileTest {
     @Test
     fun test2_applyOp() {
 
-        assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
         Prefs.write(Const.PREF_FILE)
             .content(Const.STRING_KEY_APPLY, p1)

@@ -1,9 +1,13 @@
 package com.sample.easyprefs.kotlin
 
-import com.sample.easyprefs.kotlin.pref.clr.PrefsClearTestSuite
-import com.sample.easyprefs.kotlin.pref.has.PrefsHasTestSuite
-import com.sample.easyprefs.kotlin.pref.rdwr.PrefsTestSuite
-import com.sample.easyprefs.kotlin.pref.remove.PrefsRemoveTestSuite
+import com.sample.easyprefs.kotlin.pref.PrefsClearTestSuite
+import com.sample.easyprefs.kotlin.pref.PrefsHasTestSuite
+import com.sample.easyprefs.kotlin.pref.PrefsRemoveTestSuite
+import com.sample.easyprefs.kotlin.pref.PrefsTestSuite
+import com.sample.easyprefs.kotlin.secure.SecurePrefsClearTestSuite
+import com.sample.easyprefs.kotlin.secure.SecurePrefsHasTestSuite
+import com.sample.easyprefs.kotlin.secure.SecurePrefsRemoveTestSuite
+import com.sample.easyprefs.kotlin.secure.SecurePrefsTestSuite
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
@@ -14,14 +18,9 @@ import org.junit.runners.Suite
     PrefsRemoveTestSuite::class,
     PrefsClearTestSuite::class,
 
-//    SecurePrefsTest::class,
-//    SecurePrefsFileTest::class,
-//    SecurePrefsContextTest::class,
-//    SecurePrefsContextFileTest::class,
-
-//    SecurePrefsHasTest::class,
-//    SecurePrefsHasFileTest::class,
-//    SecurePrefsHasContextTest::class,
-//    SecurePrefsHasContextFileTest::class,
+    SecurePrefsTestSuite::class,
+    SecurePrefsHasTestSuite::class,
+    SecurePrefsRemoveTestSuite::class,
+    SecurePrefsClearTestSuite::class,
 )
 class TestSuite

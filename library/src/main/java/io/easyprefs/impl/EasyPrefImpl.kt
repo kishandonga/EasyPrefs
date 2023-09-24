@@ -70,23 +70,25 @@ object EasyPrefImpl : EasyPref {
         )
     }
 
-    override fun remove(context: Context): Remove {
+    override fun remove(context: Context, encType: Encryption): Remove {
         return RemoveImpl(
             PrefProvider.getPrefEditor(
                 context,
                 getFileName(context),
-                Encryption.NONE
-            )
+                encType
+            ),
+            encType
         )
     }
 
-    override fun removeOn(context: Context, fileName: String): Remove {
+    override fun removeOn(context: Context, fileName: String, encType: Encryption): Remove {
         return RemoveImpl(
             PrefProvider.getPrefEditor(
                 context,
                 getFileNameOn(fileName),
-                Encryption.NONE
-            )
+                encType
+            ),
+            encType
         )
     }
 

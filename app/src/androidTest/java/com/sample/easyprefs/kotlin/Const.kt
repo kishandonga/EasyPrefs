@@ -1,4 +1,4 @@
-package com.sample.easyprefs.kotlin.pref
+package com.sample.easyprefs.kotlin
 
 object Const {
     const val PREF_FILE = "file_name"

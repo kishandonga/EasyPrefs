@@ -1,8 +1,6 @@
 package io.easyprefs.contract
 
-import io.easyprefs.contract.provider.AtomicProvider
-
-interface Write : AtomicProvider {
+interface Write : Atomic {
     fun content(key: String, value: Int): Write
     fun content(key: String, value: String): Write
     fun content(key: String, value: Long): Write

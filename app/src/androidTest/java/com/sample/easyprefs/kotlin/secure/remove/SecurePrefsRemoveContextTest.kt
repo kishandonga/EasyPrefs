@@ -1,10 +1,11 @@
-package com.sample.easyprefs.kotlin.pref.has
+package com.sample.easyprefs.kotlin.secure.remove
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -19,7 +20,7 @@ import org.junit.runners.MethodSorters
  */
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class PrefsHasContextTest {
+class SecurePrefsRemoveContextTest {
 
     private lateinit var context: Context
     private val p1 = "Hello..."
@@ -30,16 +31,34 @@ class PrefsHasContextTest {
     }
 
     @Test
-    fun test1_hasOp() {
-
+    fun test1_commitOp() {
         assertTrue(Prefs.clear(context).all().commit())
 
         assertTrue(
-            Prefs.write(context)
+            Prefs.securely().write(context)
                 .content(Const.STRING_KEY, p1)
                 .commit()
         )
 
-        assertTrue(Prefs.has(context).key(Const.STRING_KEY))
+        assertTrue(Prefs.securely().remove(context).key(Const.STRING_KEY).commit())
+
+        val data = Prefs.securely().read(context).content(Const.STRING_KEY, "")
+        assertEquals("", data)
+    }
+
+    @Test
+    fun test2_applyOp() {
+        assertTrue(Prefs.clear(context).all().commit())
+
+        assertTrue(
+            Prefs.securely().write(context)
+                .content(Const.STRING_KEY_APPLY, p1)
+                .commit()
+        )
+
+        Prefs.securely().remove(context).key(Const.STRING_KEY_APPLY).apply()
+
+        val data = Prefs.securely().read(context).content(Const.STRING_KEY_APPLY, "")
+        assertEquals("", data)
     }
 }

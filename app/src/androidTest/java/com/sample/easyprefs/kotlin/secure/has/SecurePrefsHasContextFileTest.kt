@@ -3,7 +3,7 @@ package com.sample.easyprefs.kotlin.secure.has
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sample.easyprefs.kotlin.secure.SecureConst
+import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -22,18 +22,27 @@ import org.junit.runners.MethodSorters
 class SecurePrefsHasContextFileTest {
 
     private lateinit var context: Context
+    private val p1 = "Hello..."
 
     @Before
     fun initApp() {
-        //Prefs.initializeApp()
         context = InstrumentationRegistry.getInstrumentation().targetContext
     }
 
     @Test
-    fun test1_HasOp() {
+    fun test1_hasOp() {
+
+        assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+
         assertTrue(
-            Prefs.securely().has(context, SecureConst.SECURE_PREF_FILE)
-                .key(SecureConst.SECURE_STRING_KEY)
+            Prefs.securely().write(context, Const.PREF_FILE)
+                .content(Const.STRING_KEY, p1)
+                .commit()
+        )
+
+        assertTrue(
+            Prefs.securely().has(context, Const.PREF_FILE)
+                .key(Const.STRING_KEY)
         )
     }
 }

@@ -1,9 +1,10 @@
-package com.sample.easyprefs.kotlin.pref.has
+package com.sample.easyprefs.kotlin.secure.remove
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.sample.easyprefs.kotlin.Const
 import io.easyprefs.Prefs
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -18,7 +19,7 @@ import org.junit.runners.MethodSorters
  */
 @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class PrefsHasFileTest {
+class SecurePrefsRemoveFileTest {
 
     private val p1 = "Hello..."
 
@@ -28,16 +29,34 @@ class PrefsHasFileTest {
     }
 
     @Test
-    fun test1_hasOp() {
-
+    fun test1_commitOp() {
         assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
 
         assertTrue(
-            Prefs.write(Const.PREF_FILE)
+            Prefs.securely().write(Const.PREF_FILE)
                 .content(Const.STRING_KEY, p1)
                 .commit()
         )
 
-        assertTrue(Prefs.has(Const.PREF_FILE).key(Const.STRING_KEY))
+        assertTrue(Prefs.securely().remove(Const.PREF_FILE).key(Const.STRING_KEY).commit())
+
+        val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY, "")
+        assertEquals("", data)
+    }
+
+    @Test
+    fun test2_applyOp() {
+        assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+
+        assertTrue(
+            Prefs.securely().write(Const.PREF_FILE)
+                .content(Const.STRING_KEY_APPLY, p1)
+                .commit()
+        )
+
+        Prefs.securely().remove(Const.PREF_FILE).key(Const.STRING_KEY_APPLY).apply()
+
+        val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY_APPLY, "")
+        assertEquals("", data)
     }
 }

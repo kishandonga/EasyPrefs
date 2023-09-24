@@ -13,8 +13,8 @@ interface EasyPref {
     fun clear(context: Context): Clear
     fun clearOn(context: Context, fileName: String): Clear
 
-    fun remove(context: Context): Remove
-    fun removeOn(context: Context, fileName: String): Remove
+    fun remove(context: Context, encType: Encryption): Remove
+    fun removeOn(context: Context, fileName: String, encType: Encryption): Remove
 
     fun has(context: Context, encType: Encryption): Has
     fun hasOn(context: Context, fileName: String, encType: Encryption): Has
