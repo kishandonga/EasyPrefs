@@ -8,4 +8,5 @@ interface Read {
     fun content(key: String, defaultValue: Double): Double
     fun content(key: String, defaultValue: Boolean): Boolean
     fun content(key: String, defaultValue: Set<String>): Set<String>
+    fun allContent(): Map<String, *>
 }

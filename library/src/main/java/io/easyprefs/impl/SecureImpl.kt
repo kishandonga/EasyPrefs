@@ -9,21 +9,22 @@ import io.easyprefs.error.PrefsHasContextException
 import io.easyprefs.error.PrefsReadContextException
 import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.typedef.Encryption
+import java.lang.ref.WeakReference
 
 object SecureImpl : Secure {
 
-    var context: Context? = null
+    lateinit var contextWeakReference: WeakReference<Context>
 
     override fun write(): Write {
-        if (context != null) {
-            return write(context!!)
+        if (isContextValid()) {
+            return write(contextWeakReference.get()!!)
         }
         throw PrefsWriteContextException()
     }
 
     override fun write(fileName: String): Write {
-        if (context != null) {
-            return write(context!!, fileName)
+        if (isContextValid()) {
+            return write(contextWeakReference.get()!!, fileName)
         }
         throw PrefsWriteContextException()
     }
@@ -37,15 +38,15 @@ object SecureImpl : Secure {
     }
 
     override fun read(): Read {
-        if (context != null) {
-            return read(context!!)
+        if (isContextValid()) {
+            return read(contextWeakReference.get()!!)
         }
         throw PrefsReadContextException()
     }
 
     override fun read(fileName: String): Read {
-        if (context != null) {
-            return read(context!!, fileName)
+        if (isContextValid()) {
+            return read(contextWeakReference.get()!!, fileName)
         }
         throw PrefsReadContextException()
     }
@@ -59,15 +60,15 @@ object SecureImpl : Secure {
     }
 
     override fun has(): Has {
-        if (context != null) {
-            return has(context!!)
+        if (isContextValid()) {
+            return has(contextWeakReference.get()!!)
         }
         throw PrefsHasContextException()
     }
 
     override fun has(fileName: String): Has {
-        if (context != null) {
-            return has(context!!, fileName)
+        if (isContextValid()) {
+            return has(contextWeakReference.get()!!, fileName)
         }
         throw PrefsHasContextException()
     }
@@ -78,5 +79,9 @@ object SecureImpl : Secure {
 
     override fun has(context: Context, fileName: String): Has {
         return EasyPrefImpl.hasOn(context, fileName, Encryption.APPLY)
+    }
+
+    private fun isContextValid(): Boolean {
+        return this::contextWeakReference.isInitialized && contextWeakReference.get() != null
     }
 }

@@ -1,44 +1,61 @@
 package io.easyprefs
 
 import android.content.Context
-import io.easyprefs.contract.*
-import io.easyprefs.error.*
+import io.easyprefs.contract.Clear
+import io.easyprefs.contract.Has
+import io.easyprefs.contract.Read
+import io.easyprefs.contract.Remove
+import io.easyprefs.contract.Secure
+import io.easyprefs.contract.Write
+import io.easyprefs.error.PrefsClearContextException
+import io.easyprefs.error.PrefsHasContextException
+import io.easyprefs.error.PrefsReadContextException
+import io.easyprefs.error.PrefsRemoveContextException
+import io.easyprefs.error.PrefsSecurelyContextException
+import io.easyprefs.error.PrefsWriteContextException
 import io.easyprefs.impl.EasyPrefImpl
 import io.easyprefs.impl.SecureImpl
 import io.easyprefs.typedef.Encryption
+import java.lang.ref.WeakReference
 
 object Prefs {
 
-    private lateinit var context: Context
+    private lateinit var contextWeakReference: WeakReference<Context>
 
     @JvmStatic
     fun initializeApp(context: Context) {
-        this.context = context.applicationContext
+        this.contextWeakReference = WeakReference(context.applicationContext)
     }
 
+    //TODO: only for the API Level 23 Android M+ @RequiresApi(Build.VERSION_CODES.M)
     @JvmStatic
     fun securely(): Secure {
         val secure = SecureImpl
-        if (this::context.isInitialized) {
-            secure.context = context
-        } else {
-            secure.context = null
+        if (isContextValid()) {
+            secure.contextWeakReference = WeakReference(contextWeakReference.get())
         }
+        throw PrefsSecurelyContextException()
+    }
+
+    @JvmStatic
+    fun securely(context: Context): Secure {
+        val secure = SecureImpl
+        secure.contextWeakReference = WeakReference(context)
         return secure
     }
 
     @JvmStatic
     fun write(): Write {
-        if (this::context.isInitialized) {
-            return write(context)
+        if (isContextValid()) {
+            return write(contextWeakReference.get()!!)
         }
         throw PrefsWriteContextException()
     }
 
     @JvmStatic
     fun write(fileName: String): Write {
-        if (this::context.isInitialized) {
-            return write(context, fileName)
+        if (isContextValid()) {
+            return write(contextWeakReference.get()!!, fileName)
         }
         throw PrefsWriteContextException()
     }
@@ -55,16 +72,16 @@ object Prefs {
 
     @JvmStatic
     fun read(): Read {
-        if (this::context.isInitialized) {
-            return read(context)
+        if (isContextValid()) {
+            return read(contextWeakReference.get()!!)
         }
         throw PrefsReadContextException()
     }
 
     @JvmStatic
     fun read(fileName: String): Read {
-        if (this::context.isInitialized) {
-            return read(context, fileName)
+        if (isContextValid()) {
+            return read(contextWeakReference.get()!!, fileName)
         }
         throw PrefsReadContextException()
     }
@@ -81,16 +98,16 @@ object Prefs {
 
     @JvmStatic
     fun clear(): Clear {
-        if (this::context.isInitialized) {
-            return clear(context)
+        if (isContextValid()) {
+            return clear(contextWeakReference.get()!!)
         }
         throw PrefsClearContextException()
     }
 
     @JvmStatic
     fun clear(fileName: String): Clear {
-        if (this::context.isInitialized) {
-            return clear(context, fileName)
+        if (isContextValid()) {
+            return clear(contextWeakReference.get()!!, fileName)
         }
         throw PrefsClearContextException()
     }
@@ -107,16 +124,16 @@ object Prefs {
 
     @JvmStatic
     fun remove(): Remove {
-        if (this::context.isInitialized) {
-            return remove(context)
+        if (isContextValid()) {
+            return remove(contextWeakReference.get()!!)
         }
         throw PrefsRemoveContextException()
     }
 
     @JvmStatic
     fun remove(fileName: String): Remove {
-        if (this::context.isInitialized) {
-            return remove(context, fileName)
+        if (isContextValid()) {
+            return remove(contextWeakReference.get()!!, fileName)
         }
         throw PrefsRemoveContextException()
     }
@@ -133,16 +150,16 @@ object Prefs {
 
     @JvmStatic
     fun has(): Has {
-        if (this::context.isInitialized) {
-            return has(context)
+        if (isContextValid()) {
+            return has(contextWeakReference.get()!!)
         }
         throw PrefsHasContextException()
     }
 
     @JvmStatic
     fun has(fileName: String): Has {
-        if (this::context.isInitialized) {
-            return has(context, fileName)
+        if (isContextValid()) {
+            return has(contextWeakReference.get()!!, fileName)
         }
         throw PrefsHasContextException()
     }
@@ -155,5 +172,9 @@ object Prefs {
     @JvmStatic
     fun has(context: Context, fileName: String): Has {
         return EasyPrefImpl.hasOn(context, fileName, Encryption.NONE)
+    }
+
+    private fun isContextValid(): Boolean {
+        return this::contextWeakReference.isInitialized && contextWeakReference.get() != null
     }
 }

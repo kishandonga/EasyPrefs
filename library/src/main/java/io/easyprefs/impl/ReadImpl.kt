@@ -105,4 +105,8 @@ class ReadImpl(
             }
         }
     }
+
+    override fun allContent(): Map<String, *> {
+        return pref.all
+    }
 }

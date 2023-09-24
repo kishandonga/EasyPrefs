@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.sample.easyprefs'
-    compileSdkVersion 33
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.sample.easyprefs"
