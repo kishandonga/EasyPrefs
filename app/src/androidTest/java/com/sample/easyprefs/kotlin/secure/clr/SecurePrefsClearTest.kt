@@ -29,6 +29,7 @@ class SecurePrefsClearTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.has().empty())
 
         val data = Prefs.securely().read().content(Const.STRING_KEY, "")
         assertEquals("", data)
@@ -37,6 +38,7 @@ class SecurePrefsClearTest {
     @Test
     fun test2_applyOp() {
         Prefs.clear().all().apply()
+        assertTrue(Prefs.has().empty())
 
         val data = Prefs.securely().read().content(Const.STRING_KEY_APPLY, "")
         assertEquals("", data)

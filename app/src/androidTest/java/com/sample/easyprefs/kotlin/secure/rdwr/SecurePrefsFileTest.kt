@@ -37,6 +37,7 @@ class SecurePrefsFileTest {
     fun test1_commitOp() {
 
         Assert.assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        Assert.assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         Assert.assertTrue(
             Prefs.securely().write(Const.PREF_FILE)
@@ -83,6 +84,7 @@ class SecurePrefsFileTest {
     fun test3_applyOp() {
 
         Assert.assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        Assert.assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         Prefs.securely().write(Const.PREF_FILE)
             .content(Const.STRING_KEY_APPLY, p1)

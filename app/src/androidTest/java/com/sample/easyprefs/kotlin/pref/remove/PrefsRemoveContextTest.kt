@@ -33,6 +33,7 @@ class PrefsRemoveContextTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         assertTrue(
             Prefs.write(context)
@@ -49,6 +50,7 @@ class PrefsRemoveContextTest {
     @Test
     fun test2_applyOp() {
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         assertTrue(
             Prefs.write(context)

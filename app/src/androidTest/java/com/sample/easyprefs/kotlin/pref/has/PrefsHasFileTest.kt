@@ -31,6 +31,7 @@ class PrefsHasFileTest {
     fun test1_hasOp() {
 
         assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         assertTrue(
             Prefs.write(Const.PREF_FILE)

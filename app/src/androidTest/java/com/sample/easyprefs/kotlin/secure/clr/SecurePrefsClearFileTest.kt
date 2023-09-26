@@ -29,6 +29,7 @@ class SecurePrefsClearFileTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals("", data)
@@ -37,6 +38,7 @@ class SecurePrefsClearFileTest {
     @Test
     fun test2_applyOp() {
         Prefs.clear(Const.PREF_FILE).all().apply()
+        assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         val data = Prefs.securely().read(Const.PREF_FILE).content(Const.STRING_KEY_APPLY, "")
         assertEquals("", data)

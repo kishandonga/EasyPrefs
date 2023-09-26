@@ -33,6 +33,8 @@ class PrefsHasContextFileTest {
     fun test1_hasOp() {
 
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
+
 
         assertTrue(
             Prefs.write(context, Const.PREF_FILE)

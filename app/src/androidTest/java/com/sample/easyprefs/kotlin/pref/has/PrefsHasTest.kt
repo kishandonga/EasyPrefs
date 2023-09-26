@@ -31,6 +31,7 @@ class PrefsHasTest {
     fun test1_hasOp() {
 
         assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.has().empty())
 
         assertTrue(
             Prefs.write()

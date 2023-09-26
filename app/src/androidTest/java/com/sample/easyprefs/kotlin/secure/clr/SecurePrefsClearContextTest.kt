@@ -32,6 +32,7 @@ class SecurePrefsClearContextTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         val data = Prefs.securely().read(context).content(Const.STRING_KEY, "")
         assertEquals("", data)
@@ -40,6 +41,7 @@ class SecurePrefsClearContextTest {
     @Test
     fun test2_applyOp() {
         Prefs.clear(context).all().apply()
+        assertTrue(Prefs.has(context).empty())
 
         val data = Prefs.securely().read(context).content(Const.STRING_KEY_APPLY, "")
         assertEquals("", data)

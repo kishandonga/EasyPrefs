@@ -33,6 +33,7 @@ class SecurePrefsHasContextTest {
     fun test1_hasOp() {
 
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         assertTrue(
             Prefs.securely().write(context)

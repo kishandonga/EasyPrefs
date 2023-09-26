@@ -40,6 +40,7 @@ class SecurePrefsContextFileTest {
     fun test1_commitOp() {
 
         Assert.assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        Assert.assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         Assert.assertTrue(
             Prefs.securely().write(context, Const.PREF_FILE)
@@ -100,6 +101,7 @@ class SecurePrefsContextFileTest {
     fun test2_applyOp() {
 
         Assert.assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        Assert.assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         Prefs.securely().write(context, Const.PREF_FILE)
             .content(Const.STRING_KEY_APPLY, p1)

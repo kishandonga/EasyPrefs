@@ -32,6 +32,7 @@ class PrefsClearContextFileTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         val data = Prefs.read(context, Const.PREF_FILE).content(Const.STRING_KEY, "")
         assertEquals("", data)
@@ -40,6 +41,7 @@ class PrefsClearContextFileTest {
     @Test
     fun test2_applyOp() {
         Prefs.clear(context, Const.PREF_FILE).all().apply()
+        assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         val data = Prefs.read(
             context,

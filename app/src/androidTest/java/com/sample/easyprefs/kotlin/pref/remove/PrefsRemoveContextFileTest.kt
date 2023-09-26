@@ -34,6 +34,7 @@ class PrefsRemoveContextFileTest {
     fun test1_commitOp() {
 
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         assertTrue(
             Prefs.write(context, Const.PREF_FILE)
@@ -53,6 +54,7 @@ class PrefsRemoveContextFileTest {
     fun test2_applyOp() {
 
         assertTrue(Prefs.clear(context, Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(context, Const.PREF_FILE).empty())
 
         assertTrue(
             Prefs.write(context, Const.PREF_FILE)

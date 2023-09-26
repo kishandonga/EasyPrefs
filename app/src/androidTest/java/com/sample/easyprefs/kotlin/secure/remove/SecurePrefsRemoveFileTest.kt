@@ -31,6 +31,7 @@ class SecurePrefsRemoveFileTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         assertTrue(
             Prefs.securely().write(Const.PREF_FILE)
@@ -47,6 +48,7 @@ class SecurePrefsRemoveFileTest {
     @Test
     fun test2_applyOp() {
         assertTrue(Prefs.clear(Const.PREF_FILE).all().commit())
+        assertTrue(Prefs.has(Const.PREF_FILE).empty())
 
         assertTrue(
             Prefs.securely().write(Const.PREF_FILE)

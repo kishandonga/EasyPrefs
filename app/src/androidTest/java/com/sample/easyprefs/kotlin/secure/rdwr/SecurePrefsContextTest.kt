@@ -40,6 +40,7 @@ class SecurePrefsContextTest {
     fun test1_commitOp() {
 
         Assert.assertTrue(Prefs.clear(context).all().commit())
+        Assert.assertTrue(Prefs.has(context).empty())
 
         Assert.assertTrue(
             Prefs.securely().write(context)
@@ -81,6 +82,7 @@ class SecurePrefsContextTest {
     fun test3_applyOp() {
 
         Assert.assertTrue(Prefs.clear(context).all().commit())
+        Assert.assertTrue(Prefs.has(context).empty())
 
         Prefs.securely().write(context)
             .content(Const.STRING_KEY_APPLY, p1)

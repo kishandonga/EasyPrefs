@@ -41,6 +41,7 @@ class PrefsContextTest {
     fun test1_commitOp() {
 
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         assertTrue(
             Prefs.write(context)
@@ -80,6 +81,7 @@ class PrefsContextTest {
     fun test2_applyOp() {
 
         assertTrue(Prefs.clear(context).all().commit())
+        assertTrue(Prefs.has(context).empty())
 
         Prefs.write(context)
             .content(Const.STRING_KEY_APPLY, p1)

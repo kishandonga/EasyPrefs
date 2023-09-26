@@ -31,6 +31,7 @@ class PrefsRemoveTest {
     @Test
     fun test1_commitOp() {
         assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.has().empty())
 
         assertTrue(
             Prefs.write()
@@ -47,6 +48,7 @@ class PrefsRemoveTest {
     @Test
     fun test2_applyOp() {
         assertTrue(Prefs.clear().all().commit())
+        assertTrue(Prefs.has().empty())
 
         assertTrue(
             Prefs.write()

@@ -37,6 +37,7 @@ class SecurePrefsTest {
     fun test1_commitOp() {
 
         Assert.assertTrue(Prefs.clear().all().commit())
+        Assert.assertTrue(Prefs.has().empty())
 
         Assert.assertTrue(
             Prefs.securely().write()
@@ -76,6 +77,7 @@ class SecurePrefsTest {
     fun test2_applyOp() {
 
         Assert.assertTrue(Prefs.clear().all().commit())
+        Assert.assertTrue(Prefs.has().empty())
 
         Prefs.securely().write()
             .content(Const.STRING_KEY_APPLY, p1)
