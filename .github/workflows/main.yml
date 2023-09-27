@@ -1,0 +1,27 @@
+name: EasyPref CI
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [19]
+        target: [default]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.28.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
