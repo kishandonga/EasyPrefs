@@ -1,20 +1,44 @@
 name: EasyPref CI
 on: 
   push:
-    branches: [ master ]
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: macos-latest
+    env:
+      JAVA_TOOL_OPTIONS: -Xmx4g
+    timeout-minutes: 15
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.0
+
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.13.0
+        with:
+          java-version: 17
+
+      - name: assemble tests
+        uses: gradle/gradle-build-action@v2.8.1
+        with:
+          arguments: assembleAndroidTest
 
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
           api-level: 19
-          arch: x86
-          profile: Nexus 6
-          script: ./gradlew connectedCheck
-          # script: ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
+          profile: Galaxy Nexus
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          pre-emulator-launch-script: |
+            echo "Running pre emulator launch script. Printing the working directory now:"
+            pwd
+          script: |
+            echo $GITHUB_REPOSITORY
+            adb devices
+            ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
