@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.md'
 
 jobs:
   test:
@@ -10,6 +12,13 @@ jobs:
     env:
       JAVA_TOOL_OPTIONS: -Xmx4g
     timeout-minutes: 15
+    strategy:
+      matrix:
+        api-level: [23, 31]
+        target: [default, google_apis]
+        arch: [x86]
+        #exclude:
+        #include:
     
     steps:
       - name: Checkout
@@ -24,20 +33,53 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Cache
+        uses: actions/cache@v3.3.2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+            ~/.android/debug.keystore
+          key: avd-${{ matrix.api-level }}-macos-latest-${{ matrix.target }}
+
       - name: assemble tests
         uses: gradle/gradle-build-action@v2.8.1
         with:
           arguments: assembleAndroidTest
 
-      - name: Android Emulator Runner
+      - name: Run Emulator to generate Snapshot for Caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
-          api-level: 19
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
           profile: Galaxy Nexus
+          avd-name: test
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          pre-emulator-launch-script: |
+            echo "Generated AVD snapshot for caching."
+          script: |
+            echo $GITHUB_REPOSITORY
+            adb devices
+            ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
+
+      - name: Start Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.28.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
+          profile: Galaxy Nexus
+          avd-name: test
+          force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           pre-emulator-launch-script: |
-            echo "Running pre emulator launch script. Printing the working directory now:"
+            echo "Running pre-emulator launch script. Printing the working directory now:"
             pwd
           script: |
             echo $GITHUB_REPOSITORY
