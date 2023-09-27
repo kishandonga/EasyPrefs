@@ -6,10 +6,6 @@ on:
 jobs:
   test:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [19]
-        target: [google_apis]
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.0
@@ -17,9 +13,8 @@ jobs:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
-          arch: x86_64
+          api-level: 19
+          arch: x86
           profile: Nexus 6
           script: ./gradlew connectedCheck
           # script: ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
