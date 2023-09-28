@@ -17,8 +17,6 @@ jobs:
         api-level: [23]
         target: [default]
         arch: [x86]
-        #exclude:
-        #include:
     
     steps:
       - name: Checkout
@@ -43,10 +41,10 @@ jobs:
             ~/.android/debug.keystore
           key: avd-${{ matrix.api-level }}-macos-latest-${{ matrix.target }}
 
-      # - name: assemble tests
-      #   uses: gradle/gradle-build-action@v2.8.1
-      #   with:
-      #     arguments: assembleAndroidTest
+      - name: Assemble Tests
+        uses: gradle/gradle-build-action@v2.8.1
+        with:
+          arguments: assembleAndroidTest
 
       - name: Run Emulator to Generate Snapshot for Caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -60,16 +58,9 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          pre-emulator-launch-script: |
-            echo "Running pre-emulator launch script. Printing the working directory now:"
-            pwd
-          script: |
-            echo $GITHUB_REPOSITORY
-            adb devices
-            ./gradlew testKotlinSuite
+          script: echo "Generated AVD snapshot for caching."
 
-      - name: Start New Android Emulator Runner
-        if: steps.avd-cache.outputs.cache-hit == 'true'
+      - name: Run TestCase Action
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
           api-level: ${{ matrix.api-level }}
