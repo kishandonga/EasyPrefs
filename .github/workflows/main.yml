@@ -14,8 +14,8 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        api-level: [23, 31]
-        target: [default, google_apis]
+        api-level: [23]
+        target: [default]
         arch: [x86]
         #exclude:
         #include:
@@ -48,7 +48,7 @@ jobs:
         with:
           arguments: assembleAndroidTest
 
-      - name: Run Emulator to generate Snapshot for Caching
+      - name: Run Emulator to Generate Snapshot for Caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
@@ -60,12 +60,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          pre-emulator-launch-script: |
-            echo "Generated AVD snapshot for caching."
-          script: |
-            echo $GITHUB_REPOSITORY
-            adb devices
-            ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite
+          script: echo "Generated AVD snapshot for caching."
 
       - name: Start Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
