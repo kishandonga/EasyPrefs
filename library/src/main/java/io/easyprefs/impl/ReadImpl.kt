@@ -16,7 +16,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getInt(key, defaultValue)
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getInt(key, defaultValue)
             } else {
                 decrypt(key, defaultValue.toString()).toInt()
@@ -36,7 +36,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getString(key, defaultValue) ?: defaultValue
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getString(key, defaultValue) ?: defaultValue
             } else {
                 decrypt(key, defaultValue)
@@ -48,7 +48,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getLong(key, defaultValue)
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getLong(key, defaultValue)
             } else {
                 decrypt(key, defaultValue.toString()).toLong()
@@ -60,7 +60,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getFloat(key, defaultValue)
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getFloat(key, defaultValue)
             } else {
                 decrypt(key, defaultValue.toString()).toFloat()
@@ -76,7 +76,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getBoolean(key, defaultValue)
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getBoolean(key, defaultValue)
             } else {
                 decrypt(key, defaultValue.toString()).toBoolean()
@@ -88,7 +88,7 @@ class ReadImpl(
         return if (encType == Encryption.NONE) {
             pref.getStringSet(key, defaultValue) ?: defaultValue
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.getStringSet(key, defaultValue) ?: defaultValue
             } else {
                 val value = decrypt(key, "")
@@ -106,6 +106,7 @@ class ReadImpl(
         }
     }
 
+    //TODO: it give encrypted data as well
     override fun allContent(): Map<String, *> {
         return pref.all
     }
