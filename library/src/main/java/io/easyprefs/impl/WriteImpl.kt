@@ -16,7 +16,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putInt(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putInt(key, value)
             } else {
                 crypt(key, value.toString())
@@ -33,7 +33,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putString(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putString(key, value)
             } else {
                 crypt(key, value)
@@ -46,7 +46,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putLong(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putLong(key, value)
             } else {
                 crypt(key, value.toString())
@@ -59,7 +59,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putFloat(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putFloat(key, value)
             } else {
                 crypt(key, value.toString())
@@ -77,7 +77,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putBoolean(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putBoolean(key, value)
             } else {
                 crypt(key, value.toString())
@@ -90,7 +90,7 @@ class WriteImpl(
         if (encType == Encryption.NONE) {
             edit.putStringSet(key, value)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.putStringSet(key, value)
             } else {
                 crypt(key, JSONArray(value).toString())

@@ -6,7 +6,7 @@ EasyPrefs is library for the android SharedPreferences or we can say it wrapper 
 
 It support all Primitive Data Type and String Set more api will be added soon.
 
-For, the secure operation used AES encryption <= 20 API Level, and for 21 >= used android provided encrypted shared preferences in both case you got same output your key and value both are stored securly.
+For, the secure operation used AES encryption <= 20 API Level, and for 21 >= used android provided encrypted shared preferences in both case you got same output your key and value both are stored securely.
 
 This library is developed in the Kotlin and supported both language `Kotlin` as well as `Java` with the same practices.
 
@@ -18,8 +18,6 @@ Gradle:
 ```groovy
 allprojects {
     repositories {
-        google()
-        jcenter()
         maven { url 'https://jitpack.io' }
     }
 }
@@ -103,6 +101,8 @@ Prefs.has().key("KEY");
 Prefs.has(fileName).key("KEY");
 Prefs.has(context).key("KEY");
 Prefs.has(context, fileName).key("KEY");
+
+Prefs.has().empty();
 ```
 - Give boolean value if key exists then true else false.
 
@@ -121,12 +121,14 @@ commit() or .apply()
 #### Clear Operation
 
 ```kotlin
-Prefs.clear().all().
-Prefs.clear(fileName).all().
-Prefs.clear(context).all().
-Prefs.clear(context, fileName).all().
+Prefs.clear().all()
+Prefs.clear(fileName).all()
+Prefs.clear(context).all()
+Prefs.clear(context, fileName).all()
 
 .commit() or .apply()
+
+Note: for, securely operation used same Prefs.clear() operation.
 ```
 -	After the clear operation commit and apply call mandatory.
 
@@ -135,10 +137,9 @@ For, all the read, write, clear, has, remove support context and file name manua
 If you pass context manually then no need to initialize lib on the application class, For, more information refer [here](app/src/androidTest/java/com/sample/easyprefs)
 
 ## Future Scope
-- has and remove support provided to secure operations.
 - add sorting on the Set so get direct sorted data.
-- to make life easier adding more api in near future
 - callback extend as we already have in the preferences.
+- provide suggestions to make this lib more helpful.
 
 ---
 

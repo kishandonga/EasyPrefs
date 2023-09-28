@@ -15,7 +15,7 @@ class RemoveImpl(
         if (encType == Encryption.NONE) {
             edit.remove(key)
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 edit.remove(key)
             } else {
                 edit.remove(Crypt.encryptKey(key))

@@ -20,3 +20,8 @@ allprojects {
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
+
+tasks.register('testKotlinSuite', Exec) {
+    commandLine './gradlew', 'app:connectedAndroidTest',
+            '-Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite -i'
+}

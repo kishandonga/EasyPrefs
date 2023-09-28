@@ -15,7 +15,7 @@ class HasImpl(
         return if (encType == Encryption.NONE) {
             pref.all.keys.contains(key)
         } else {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 pref.all.keys.contains(key)
             } else {
                 pref.all.keys.contains(Crypt.encryptKey(key))
