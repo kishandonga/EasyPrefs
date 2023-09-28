@@ -72,9 +72,9 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           pre-emulator-launch-script: |
-            echo "Running pre-emulator launch script. Printing the working directory now:"
-            pwd
+            echo "Running pre-emulator launch script."
           script: |
             echo $GITHUB_REPOSITORY
             adb devices
-            ./gradlew testKotlinSuite
+            ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.sample.easyprefs.kotlin.TestSuite -i
+
