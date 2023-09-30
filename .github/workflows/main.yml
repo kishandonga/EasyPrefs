@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        api-level: [23]
+        api-level: [19,26,31]
         target: [default]
         arch: [x86]
     
