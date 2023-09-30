@@ -1,5 +1,7 @@
 package io.easyprefs.contract
 
+import android.content.SharedPreferences
+
 interface Read {
     fun content(key: String, defaultValue: Int): Int
     fun content(key: String, defaultValue: String): String
@@ -9,4 +11,5 @@ interface Read {
     fun content(key: String, defaultValue: Boolean): Boolean
     fun content(key: String, defaultValue: Set<String>): Set<String>
     fun allContent(): Map<String, *>
+    fun pref(): SharedPreferences
 }

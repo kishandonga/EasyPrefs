@@ -136,6 +136,8 @@ For, all the read, write, clear, has, remove support context and file name manua
 
 If you pass context manually then no need to initialize lib on the application class, For, more information refer [here](app/src/androidTest/java/com/sample/easyprefs)
 
+This library tested on the API level 20, 26, 29, 30 if you found any bug or issue raise issue or submit PR
+
 ## Future Scope
 - add sorting on the Set so get direct sorted data.
 - callback extend as we already have in the preferences.

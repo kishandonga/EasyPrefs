@@ -12,6 +12,10 @@ class ReadImpl(
     private val encType: Encryption
 ) : Read {
 
+    override fun pref(): SharedPreferences {
+        return pref
+    }
+
     override fun content(key: String, defaultValue: Int): Int {
         return if (encType == Encryption.NONE) {
             pref.getInt(key, defaultValue)
@@ -22,14 +26,6 @@ class ReadImpl(
                 decrypt(key, defaultValue.toString()).toInt()
             }
         }
-    }
-
-    private fun decrypt(key: String, defaultValue: String): String {
-        var value = pref.getString(Crypt.encryptKey(key), null) ?: defaultValue
-        if (value != defaultValue) {
-            value = Crypt.decrypt(key, value)
-        }
-        return value
     }
 
     override fun content(key: String, defaultValue: String): String {
@@ -92,7 +88,7 @@ class ReadImpl(
                 pref.getStringSet(key, defaultValue) ?: defaultValue
             } else {
                 val value = decrypt(key, "")
-                if (value.isEmpty()) {
+                return if (value.isEmpty()) {
                     defaultValue
                 } else {
                     val set = mutableSetOf<String>()
@@ -106,8 +102,47 @@ class ReadImpl(
         }
     }
 
-    //TODO: it give encrypted data as well
     override fun allContent(): Map<String, *> {
-        return pref.all
+        return if (encType == Encryption.NONE) {
+            pref.all
+        } else {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                pref.all
+            } else {
+                val map = mutableMapOf<String, Any?>()
+                pref.all.keys.forEach {
+                    val key = Crypt.encryptKey(it)
+                    val value = decrypt(it, "")
+                    if (isNumeric(value)) {
+                        if (value.contains('.')) {
+                            map[key] = value.toDoubleOrNull()
+                        } else {
+                            map[key] = value.toLongOrNull()
+                        }
+                    } else {
+                        map[key] = value
+                    }
+                }
+                map
+            }
+        }
+    }
+
+    private fun decrypt(key: String, defaultValue: String): String {
+        val value = pref.getString(Crypt.encryptKey(key), defaultValue)
+        return if (value == null) {
+            defaultValue
+        } else {
+            return if (value == defaultValue) {
+                defaultValue
+            } else {
+                Crypt.decrypt(key, value)
+            }
+        }
+    }
+
+    private fun isNumeric(toCheck: String): Boolean {
+        val regex = "-?[0-9]+(\\.[0-9]+)?".toRegex()
+        return toCheck.matches(regex)
     }
 }

@@ -1,5 +1,7 @@
 package io.easyprefs.contract
 
+import android.content.SharedPreferences
+
 interface Write : Atomic {
     fun content(key: String, value: Int): Write
     fun content(key: String, value: String): Write
@@ -8,4 +10,5 @@ interface Write : Atomic {
     fun content(key: String, value: Double): Write
     fun content(key: String, value: Boolean): Write
     fun content(key: String, value: Set<String>): Write
+    fun prefEditor(): SharedPreferences.Editor
 }

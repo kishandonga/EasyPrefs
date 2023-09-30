@@ -12,6 +12,10 @@ class WriteImpl(
     private val encType: Encryption
 ) : Write, AtomicImpl(edit) {
 
+    override fun prefEditor(): SharedPreferences.Editor {
+        return edit
+    }
+
     override fun content(key: String, value: Int): Write {
         if (encType == Encryption.NONE) {
             edit.putInt(key, value)
@@ -23,10 +27,6 @@ class WriteImpl(
             }
         }
         return this
-    }
-
-    private fun crypt(key: String, value: String) {
-        edit.putString(Crypt.encryptKey(key), Crypt.encrypt(key, value))
     }
 
     override fun content(key: String, value: String): Write {
@@ -97,6 +97,10 @@ class WriteImpl(
             }
         }
         return this
+    }
+
+    private fun crypt(key: String, value: String) {
+        edit.putString(Crypt.encryptKey(key), Crypt.encrypt(key, value))
     }
 }
 
